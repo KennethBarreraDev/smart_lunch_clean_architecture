@@ -50,6 +50,7 @@ dependencies:
   url_launcher: ^6.3.2
   awesome_snackbar_content: ^0.1.8
   webview_flutter: ^4.13.1
+  dotted_line: ^3.2.3
 
 dev_dependencies:
   flutter_test:

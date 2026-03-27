@@ -1,8 +1,4 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:smart_lunch/blocs/croem/croem_event.dart';
-import 'package:smart_lunch/blocs/sales/sales_bloc.dart';
-import 'package:smart_lunch/blocs/sales/sales_event.dart';
 import 'package:smart_lunch/presentation/pages/auth/auth_page.dart';
 import 'package:smart_lunch/presentation/pages/croem/register_croem_card.dart';
 import 'package:smart_lunch/presentation/pages/home/home_page.dart';
@@ -12,6 +8,8 @@ import 'package:smart_lunch/presentation/pages/openpay/register_openpay_card.dar
 import 'package:smart_lunch/presentation/pages/sale/sale_page.dart';
 import 'package:smart_lunch/presentation/pages/select-card-to-pay/SelectCardToPay.dart';
 import 'package:smart_lunch/presentation/pages/splash/splash_page.dart';
+import 'package:smart_lunch/presentation/pages/successful_sale/successful_presale_page.dart';
+import 'package:smart_lunch/presentation/pages/successful_sale/sucessful_sale_page.dart';
 import 'package:smart_lunch/presentation/pages/summary_sale/summary_sale_page.dart';
 import 'package:smart_lunch/presentation/routes/routes.dart';
 
@@ -71,12 +69,23 @@ class AppRouter {
         builder: (context, state) => RegisterOpenpayCard(),
       ),
 
-      // GoRoute(
-      //   name: AppRoutes.getCleanRouteName(AppRoutes.selectCardToPay),
-      //   path: AppRoutes.selectCardToPay,
-      //   builder: (context, state) => SelectCardToPayPage(),
-      // ),
+      GoRoute(
+        name: AppRoutes.getCleanRouteName(AppRoutes.successfulSale),
+        path: AppRoutes.successfulSale,
+        builder: (context, state) => SuccessfulSalePage(),
+      ),
 
+      GoRoute(
+        name: AppRoutes.getCleanRouteName(AppRoutes.selectCardToPay),
+        path: AppRoutes.selectCardToPay,
+        builder: (context, state) => SelectCardToPayPage(),
+      ),
+
+      GoRoute(
+        name: AppRoutes.getCleanRouteName(AppRoutes.successfulPresale),
+        path: AppRoutes.successfulPresale,
+        builder: (context, state) => SuccessfulPreSalePage(),
+      ),
       GoRoute(
         name: AppRoutes.getCleanRouteName(AppRoutes.summarySale),
         path: AppRoutes.summarySale,

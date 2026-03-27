@@ -13,9 +13,12 @@ import 'package:smart_lunch/blocs/openpay/openpay_state.dart';
 import 'package:smart_lunch/blocs/sales/sales_bloc.dart';
 import 'package:smart_lunch/blocs/sales/sales_event.dart';
 import 'package:smart_lunch/blocs/sales/sales_state.dart';
+import 'package:smart_lunch/blocs/session/session_bloc.dart';
+import 'package:smart_lunch/blocs/session/session_state.dart';
 import 'package:smart_lunch/core/base_widgets/appbar/go_back_button.dart';
 import 'package:smart_lunch/core/base_widgets/buttons/rounded_button.dart';
 import 'package:smart_lunch/core/base_widgets/openpay/openpay_row.dart';
+import 'package:smart_lunch/core/base_widgets/snackbar/generic_snackbar.dart';
 import 'package:smart_lunch/core/constants/countries.dart';
 import 'package:smart_lunch/core/utils/app_colors.dart';
 import 'package:smart_lunch/core/utils/date_utils.dart';
@@ -32,32 +35,61 @@ class SummarySalePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            colors: [AppColors.coral, AppColors.orange],
-          ),
-        ),
-        child: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              children: const [
-                _HeaderSection(),
-                SizedBox(height: 10),
-                _SummarySection(),
-                SizedBox(height: 10),
-                _PaymentSection(),
-                SizedBox(height: 10),
-                _TotalSection(),
-                SizedBox(height: 10),
-              ],
+    return BlocBuilder<SessionBloc, SessionState>(
+      builder: (context, state) {
+        if (state is! SessionAuthenticated) {
+          return const SizedBox.shrink();
+        }
+
+        return BlocListener<SalesBloc, SaleState>(
+          listener: (context, state) {
+            if (state is SaleSuccessState) {
+              if (state.isPresale) {
+                context.pushNamed(
+                  AppRoutes.getCleanRouteName(AppRoutes.successfulSale),
+                );  
+              } else {
+                context.pushNamed(
+                  AppRoutes.getCleanRouteName(AppRoutes.successfulSale),
+                );
+              }
+            } else if (state is SaleErrorState) {
+              showCustomSnackBar(
+                context: context,
+                bannerType: BannerTypes.errorBanner.type,
+                bannerMessage: AppLocalizations.of(context)!.try_again_later,
+              );
+            }
+          },
+          child: Scaffold(
+            body: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                  colors: [AppColors.coral, AppColors.orange],
+                ),
+              ),
+              child: SafeArea(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: const [
+                      _HeaderSection(),
+                      SizedBox(height: 10),
+                      _SummarySection(),
+                      SizedBox(height: 10),
+                      _PaymentSection(),
+                      SizedBox(height: 10),
+                      _TotalSection(),
+                      SizedBox(height: 10),
+                    ],
+                  ),
+                ),
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
@@ -284,9 +316,7 @@ class _TotalSection extends StatelessWidget {
                                   color: AppColors.tuitionGreen,
                                   iconData: Icons.credit_score_outlined,
                                   text: AppLocalizations.of(context)!.buy_now,
-                                  onTap: () {
-                                    // TODO: dispatch event
-                                  },
+                                  onTap: () {},
                                 ),
                         ],
                       ),

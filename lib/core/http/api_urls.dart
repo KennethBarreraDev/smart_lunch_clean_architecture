@@ -23,6 +23,9 @@ class ApiUrls {
 
   //Sales
   static String salesUrl = "$baseUrl/smartlunch/sale/";
+  static String mobileSales = "$baseUrl/smartlunch/sale/mobile/";
+  static String presalesUrl = "$baseUrl/smartlunch/sale/presale/";
+  static String inmediateSale = "$baseUrl/smartlunch/sale/immediate/";
 
   //Products
   static String categoriesUrl = "$baseUrl/smartlunch/category/";

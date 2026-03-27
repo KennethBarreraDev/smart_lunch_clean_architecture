@@ -19,12 +19,74 @@ class SalesBloc extends Bloc<SalesEvent, SaleState> {
     on<ValidateSale>(_validateSale);
     on<SaveComments>(_saveComments);
     on<PayWithBalance>(_payWithBalance);
-  
+    on<ResetSaleEvent>(_resetSale);
+    on<IsLoadingSales>(_isLoadingSales);
+    on<SellProducts>(_sellProducts);
   }
+  Future<void> _sellProducts(
+    SellProducts event,
+    Emitter<SaleState> emit,
+  ) async {
+    emit(state.copyWith(loading: true));
+    final success = await repository.sellProducts(
+      userBuyer: event.userBuyer,
+      saleDate: event.saleDate,
+      cart: event.cart,
+      comments: event.comments,
+      isPresale: event.isPresale,
+      isAutosuficientStudent: event.isAutosuficientStudent,
+      payWithBalance: event.payWithBalance,
+      cardId: event.cardId,
+      deviceSessionId: event.deviceSessionId,
+    );
+
+    emit(state.copyWith(loading: false));
+    if (success.isNotEmpty) {
+      emit(
+        SaleSuccessState(
+          saleId: success["saleId"],
+          finalPrice: success["finalPrice"],
+          selectedUser: state.selectedUser,
+          saleDate: state.saleDate,
+          scheduledHour: state.scheduledHour,
+          cart: state.cart,
+          cartProducts: state.cartProducts,
+          totalPrice: state.totalPrice,
+          totalProducts: state.totalProducts,
+          validatingSale: state.validatingSale,
+          comments: state.comments,
+          payWithBalance: state.payWithBalance,
+          loading: state.loading,
+          isPresale: state.isPresale,
+        ),
+      );
+    } else {
+      emit(
+        SaleErrorState(
+          selectedUser: state.selectedUser,
+          saleDate: state.saleDate,
+          scheduledHour: state.scheduledHour,
+          cart: state.cart,
+          cartProducts: state.cartProducts,
+          totalPrice: state.totalPrice,
+          totalProducts: state.totalProducts,
+          validatingSale: state.validatingSale,
+          comments: state.comments,
+          payWithBalance: state.payWithBalance,
+          loading: state.loading,
+          isPresale: state.isPresale,
+        ),
+      );
+    }
+  }
+
+  void _isLoadingSales(IsLoadingSales event, Emitter<SaleState> emit) {
+    emit(state.copyWith(loading: event.isLoading));
+  }
+
   void _payWithBalance(PayWithBalance event, Emitter<SaleState> emit) {
     emit(state.copyWith(payWithBalance: event.payWithBalance));
   }
-
 
   void _saveComments(SaveComments event, Emitter<SaleState> emit) {
     emit(state.copyWith(comments: event.comments));

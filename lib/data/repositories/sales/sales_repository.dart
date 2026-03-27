@@ -3,6 +3,7 @@ import 'dart:developer' as developer;
 import 'package:intl/intl.dart';
 import 'package:smart_lunch/core/constants/user_roles.dart';
 import 'package:smart_lunch/core/http/api_urls.dart';
+import 'package:smart_lunch/core/utils/sale_types.dart';
 import 'package:smart_lunch/data/models/cafeteria_user_model.dart';
 import 'package:smart_lunch/data/models/presale_model.dart';
 import 'package:smart_lunch/data/repositories/api/api_client_repository.dart';
@@ -125,6 +126,100 @@ class SalesRepository {
     } catch (e) {
       developer.log("Failed to load cafeterias: $e", name: "loadPresales");
       throw Exception("error_loading_presales");
+    }
+  }
+
+  Future<Map<String, dynamic>> sellProducts({
+    String? userBuyer,
+    DateTime? saleDate,
+    Map<int, int>? cart,
+    String? comments,
+    bool isPresale = false,
+    bool isAutosuficientStudent = false,
+    bool payWithBalance = false,
+    String? cardId,
+    String? deviceSessionId,
+  }) async {
+    try {
+      developer.log("Selling products", name: "sellProducts");
+
+      final SaleTypes saleTypeEnum = isPresale
+          ? SaleTypes.PS
+          : (payWithBalance ? SaleTypes.MO : SaleTypes.IM);
+
+      final String saleType = saleTypeEnum.name;
+
+      final List<Map<String, int>> orders = (cart ?? {}).entries
+          .map((e) => {"product": e.key, "quantity": e.value})
+          .toList();
+
+      final Map<String, dynamic> data = {
+        "orders": orders,
+        "comment": comments,
+        "user_buyer": userBuyer,
+        "sale_type": saleType,
+        "payment_method": payWithBalance ? "SMART_COIN" : "OPENPAY",
+      };
+
+      if (!payWithBalance) {
+        data.addAll({"card_id": cardId, "device_session_id": deviceSessionId});
+      }
+
+      if (saleTypeEnum == SaleTypes.PS) {
+        DateTime dateScheduledRaw = DateFormat(
+          'dd/MM/yyyy',
+        ).parse(saleDate.toString());
+        String formattedScheduledDate = dateScheduledRaw.toUtc().toString();
+
+        data["scheduled_date"] = formattedScheduledDate;
+      } else {
+        // No PS
+        //Add two minutes to avoid time error
+        if (!payWithBalance) {
+          String formattedScheduledDate =
+              DateFormat("yyyy-MM-dd'T'HH:mm:ss.'000Z'")
+                  .format(
+                    (saleDate ?? DateTime.now())
+                        .add(const Duration(minutes: 2))
+                        .toUtc(),
+                  )
+                  .toString();
+
+          data["scheduled_date"] = formattedScheduledDate;
+        } else {
+          String formattedScheduledDate = DateFormat(
+            "yyyy-MM-dd'T'HH:mm:ss.'000Z'",
+          ).format(DateTime.now().toUtc()).toString();
+
+          data["scheduled_date"] = formattedScheduledDate;
+        }
+      }
+
+      developer.log(data.toString(), name: "sellProductsBody");
+
+      final response = await api.post(
+        ApiUrls.salesUrl,
+        data,
+        logName: "sellProducts",
+      );
+
+      if (response.statusCode != 200 && response.statusCode != 201) {
+        developer.log(
+          "Error selling products: ${response.statusCode} - ${response.body}",
+          name: "sellProducts",
+        );
+        return {};
+      }
+      Map<String, dynamic> responseMap = json.decode(
+        utf8.decode(response.bodyBytes),
+      );
+      developer.log(responseMap.toString(), name: "sellProducts");
+      String successfulSaleId = responseMap["folio"].toString();
+      String successfulSaleCharge = responseMap["final_price"].toString();
+      return {"saleId": successfulSaleId, "finalPrice": successfulSaleCharge};
+    } catch (e) {
+      developer.log("Failed to sell products: $e", name: "sellProducts");
+      return {};
     }
   }
 }

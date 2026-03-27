@@ -13,15 +13,20 @@ class OpenpayLoaded extends OpenpayState {
   OpenpayLoaded({required this.openpay});
 }
 
-
-
 class OpenpayCardsLoaded extends OpenpayState {
   Openpay? openpay;
   List<OpenpayCard>? cards;
   OpenpayCard? selectedCard;
   String cardBrand;
+  String temporalCardID = "";
 
-  OpenpayCardsLoaded({required this.openpay, this.cards, this.selectedCard, this.cardBrand = ""});
+  OpenpayCardsLoaded({
+    required this.openpay,
+    this.cards,
+    this.selectedCard,
+    this.cardBrand = "",
+    this.temporalCardID = "",
+  });
 }
 
 class OpenpayError extends OpenpayState {

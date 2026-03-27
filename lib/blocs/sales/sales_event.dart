@@ -57,6 +57,36 @@ class PayWithBalance extends SalesEvent {
   PayWithBalance(this.payWithBalance);
 }
 
+class IsLoadingSales extends SalesEvent {
+  final bool isLoading;
+
+  IsLoadingSales(this.isLoading);
+}
+
+class SellProducts extends SalesEvent {
+  final String? userBuyer;
+  final DateTime? saleDate;
+  final Map<int, int>? cart;
+  final String? comments;
+  final bool isPresale;
+  final bool isAutosuficientStudent;
+  final bool payWithBalance;
+  final String? cardId;
+  final String? deviceSessionId;
+
+  SellProducts({
+    this.userBuyer,
+    this.saleDate,
+    this.cart,
+    this.comments,
+    this.isPresale = false,
+    this.isAutosuficientStudent = false,
+    this.payWithBalance = false,
+    this.cardId,
+    this.deviceSessionId,
+  });
+}
+
 class ResetSaleEvent extends SalesEvent {
   ResetSaleEvent();
 }

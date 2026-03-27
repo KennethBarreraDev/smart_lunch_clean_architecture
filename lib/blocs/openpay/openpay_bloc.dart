@@ -16,6 +16,59 @@ class OpenpayBloc extends Bloc<OpenpayEvent, OpenpayState> {
     on<LoadOpenpayCardsEvent>(_loadOpenpayCards);
     on<RegisterOpenpayCardEvent>(_registerOpenpayCard);
     on<ChangeOpenpayCardBrandEvent>(_changeOpenpayCardBrand);
+    on<SelectMainOpenpayCardEvent>(_selectMainOpenpayCard);
+    on<TemporallyChangeSelectedOpenpayCardEvent>(
+      _temporallyChangeSelectedOpenpayCard,
+    );
+  }
+
+  void _selectMainOpenpayCard(
+    SelectMainOpenpayCardEvent event,
+    Emitter<OpenpayState> emit,
+  ) {
+    emit(OpenpayLoading());
+
+    try {
+      final OpenpayCard? selectedCard =
+          (event.cards ?? []).any(
+            (card) => card.id.toString() == event.temporalCardID,
+          )
+          ? event.cards.firstWhere(
+              (card) => card.id.toString() == event.temporalCardID,
+            )
+          : event.cards.first;
+
+      emit(
+        OpenpayCardsLoaded(
+          cards: event.cards,
+          selectedCard: selectedCard,
+          temporalCardID: event.temporalCardID,
+          openpay: event.openpay,
+          cardBrand: event.cardBrand,
+        ),
+      );
+    } catch (e) {
+      emit(OpenpayError(e.toString()));
+    }
+  }
+
+  _temporallyChangeSelectedOpenpayCard(
+    TemporallyChangeSelectedOpenpayCardEvent event,
+    Emitter<OpenpayState> emit,
+  ) {
+    emit(OpenpayLoading());
+
+    try {
+      OpenpayCardsLoaded(
+        cards: event.cards,
+        selectedCard: event.selectedCard,
+        temporalCardID: event.temporalCardID,
+        openpay: event.openpay,
+        cardBrand: event.cardBrand,
+      );
+    } catch (e) {
+      emit(OpenpayError(e.toString()));
+    }
   }
 
   Future<void> _changeOpenpayCardBrand(

@@ -18,10 +18,46 @@ class ChangeOpenpayCardBrandEvent extends OpenpayEvent {
   String cardBrand;
   OpenpayCard? selectedCard;
   List<OpenpayCard> cards;
+  String temporalCardID;
 
-  ChangeOpenpayCardBrandEvent(this.cardBrand, this.openpay, this.selectedCard, this.cards);
+  ChangeOpenpayCardBrandEvent(
+    this.cardBrand,
+    this.openpay,
+    this.selectedCard,
+    this.cards,
+    this.temporalCardID,
+  );
 }
 
+class SelectMainOpenpayCardEvent extends OpenpayEvent {
+  Openpay? openpay;
+  String cardBrand;
+  List<OpenpayCard> cards;
+  String temporalCardID;
+
+  SelectMainOpenpayCardEvent(
+    this.cardBrand,
+    this.openpay,
+    this.cards,
+    this.temporalCardID,
+  );
+}
+
+class TemporallyChangeSelectedOpenpayCardEvent extends OpenpayEvent {
+  Openpay? openpay;
+  String cardBrand;
+  OpenpayCard? selectedCard;
+  List<OpenpayCard> cards;
+  String temporalCardID;
+
+  TemporallyChangeSelectedOpenpayCardEvent(
+    this.cardBrand,
+    this.openpay,
+    this.selectedCard,
+    this.cards,
+    this.temporalCardID,
+  );
+}
 
 class RegisterOpenpayCardEvent extends OpenpayEvent {
   Openpay? openpay;

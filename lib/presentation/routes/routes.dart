@@ -9,6 +9,8 @@ class AppRoutes {
   static String registerCroemCard = "/register-croem-card";
   static String registerOpenpayCard = "/register-openpay-card";
   static String selectCardToPay = "/select-card-to-pay";
+  static String successfulSale = "/successful-sale";
+    static String successfulPresale = "/successful-sale";
 
 
   static getCleanRouteName(String route) {

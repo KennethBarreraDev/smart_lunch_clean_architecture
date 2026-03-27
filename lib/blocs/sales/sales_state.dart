@@ -15,7 +15,6 @@ class SaleState {
   final bool? payWithBalance;
   final bool? loading;
 
-
   SaleState({
     this.selectedUser,
     this.saleDate,
@@ -60,6 +59,71 @@ class SaleState {
       loading: loading ?? this.loading,
     );
   }
+}
+
+class SaleSuccessState extends SaleState {
+  final String? saleId;
+  final String? finalPrice;
+
+  SaleSuccessState({
+    CafeteriaUser? selectedUser,
+    DateTime? saleDate,
+    bool? isPresale,
+    String? scheduledHour,
+    Map<int, int>? cart,
+    List<ProductModel>? cartProducts,
+    double? totalPrice,
+    int? totalProducts,
+    bool? validatingSale,
+    String? comments,
+    bool? payWithBalance,
+    bool? loading,
+    this.saleId,
+    this.finalPrice,
+  }) : super(
+         selectedUser: selectedUser,
+         saleDate: saleDate,
+         isPresale: isPresale ?? false,
+         scheduledHour: scheduledHour,
+         cart: cart,
+         cartProducts: cartProducts,
+         totalPrice: totalPrice,
+         totalProducts: totalProducts,
+         validatingSale: validatingSale ?? false,
+         comments: comments,
+         payWithBalance: payWithBalance,
+         loading: loading,
+       );
+}
+
+class SaleErrorState extends SaleState {
+  SaleErrorState({
+    CafeteriaUser? selectedUser,
+    DateTime? saleDate,
+    bool? isPresale,
+    String? scheduledHour,
+    Map<int, int>? cart,
+    List<ProductModel>? cartProducts,
+    double? totalPrice,
+    int? totalProducts,
+    bool? validatingSale,
+    String? comments,
+    bool? payWithBalance,
+    bool? loading,
+  }) : super(
+         selectedUser: selectedUser,
+         saleDate: saleDate,
+         isPresale: isPresale ?? false,
+         scheduledHour: scheduledHour,
+         cart: cart,
+         cartProducts: cartProducts,
+         totalPrice: totalPrice,
+         totalProducts: totalProducts,
+         validatingSale: validatingSale ?? false,
+         comments: comments,
+         payWithBalance: payWithBalance,
+         loading: loading,
+       );
 }
 
 class InitialSalesState extends SaleState {

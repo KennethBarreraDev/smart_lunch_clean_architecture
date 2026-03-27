@@ -1,12 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_lunch/blocs/croem/croem_event.dart';
-import 'package:smart_lunch/core/stages/app_stage.dart';
 import 'package:smart_lunch/data/models/croem_card.dart';
-import 'package:smart_lunch/data/models/openpay_card.dart';
-import 'package:smart_lunch/data/providers/openpay_provider.dart';
 import 'package:smart_lunch/data/repositories/croem/croem_repository.dart';
-
-import 'package:smart_lunch/data/repositories/openpay/openpay_repository.dart';
 
 import 'croem_state.dart';
 
@@ -16,6 +11,56 @@ class CroemBloc extends Bloc<CroemEvent, CroemState> {
   CroemBloc(this.repository) : super(CroemInitial()) {
     on<LoadCroemCardsEvent>(_loadCroemCards);
     on<RegisterCroemCardEvent>(_registerCroemCard);
+    on<TemporallyChangeSelectedCroemCardEvent>(
+      _temporallyChangeSelectedCroemCard,
+    );
+    on<SelectMainCroemCardEvent>(_selectMainCroemCard);
+  }
+  void _selectMainCroemCard(
+    SelectMainCroemCardEvent event,
+    Emitter<CroemState> emit,
+  ) {
+    emit(CroemLoading());
+
+    try {
+      final CroemCard? selectedCard =
+          (event.cards ?? []).any(
+            (card) => card.id.toString() == event.temporalCardID,
+          )
+          ? event.cards?.firstWhere(
+              (card) => card.id.toString() == event.temporalCardID,
+            )
+          : event.cards?.first;
+
+      emit(
+        CroemCardsLoaded(
+          cards: event.cards,
+          selectedCard: selectedCard,
+          temporalCardID: event.temporalCardID,
+        ),
+      );
+    } catch (e) {
+      emit(CroemError(e.toString()));
+    }
+  }
+
+  _temporallyChangeSelectedCroemCard(
+    TemporallyChangeSelectedCroemCardEvent event,
+    Emitter<CroemState> emit,
+  ) {
+    emit(CroemLoading());
+
+    try {
+      emit(
+        CroemCardsLoaded(
+          cards: event.cards,
+          selectedCard: event.selectedCard,
+          temporalCardID: event.temporalCardID,
+        ),
+      );
+    } catch (e) {
+      emit(CroemError(e.toString()));
+    }
   }
 
   Future<void> _loadCroemCards(

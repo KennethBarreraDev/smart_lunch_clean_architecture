@@ -12,6 +12,7 @@ class SaleCardComponent extends StatelessWidget {
     required this.holderName,
     required this.internalId,
     required this.cardBrand,
+    required this.onSelectCard,
   });
 
   final String holderName;
@@ -19,6 +20,7 @@ class SaleCardComponent extends StatelessWidget {
   final String cardId;
   final int internalId;
   final String cardBrand;
+  final Function(String) onSelectCard;
 
   @override
   Widget build(BuildContext context) {
@@ -56,10 +58,7 @@ class SaleCardComponent extends StatelessWidget {
                 ),
               ],
             ),
-            Text(
-              "●●●● $cardNumber",
-              style: const TextStyle(fontSize: 13),
-            ),
+            Text("●●●● $cardNumber", style: const TextStyle(fontSize: 13)),
             Image.asset(
               AppImages.getCardBrandImage(
                 cardBrand.isNotEmpty
@@ -71,14 +70,17 @@ class SaleCardComponent extends StatelessWidget {
         ),
         trailing: Radio<String>(
           value: cardId,
+          groupValue: internalId.toString(),
+          onChanged: (value) {
+            onSelectCard(value!);
+          },
+          
           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
           visualDensity: VisualDensity.compact,
           fillColor: MaterialStateProperty.resolveWith<Color>((states) {
             return AppColors.orange;
           }),
-          overlayColor: MaterialStateProperty.all<Color>(
-            Colors.transparent,
-          ),
+          overlayColor: MaterialStateProperty.all<Color>(Colors.transparent),
         ),
       ),
     );
