@@ -45,6 +45,18 @@ class ValidateSale extends SalesEvent {
   ValidateSale(this.validatingSale);
 }
 
+class SaveComments extends SalesEvent {
+  final String comments;
+
+  SaveComments(this.comments);
+}
+
+class PayWithBalance extends SalesEvent {
+  final bool payWithBalance;
+
+  PayWithBalance(this.payWithBalance);
+}
+
 class ResetSaleEvent extends SalesEvent {
   ResetSaleEvent();
 }

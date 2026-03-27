@@ -1,4 +1,6 @@
 class ApiUrls {
+  static bool developmentMode = true;
+
   static String baseUrl = "https://backend2-dev.smartschool.mx/api";
 
   //Auth
@@ -31,6 +33,10 @@ class ApiUrls {
   static String openPayCredentialsUrl =
       "$baseUrl/smartlunch/open-pay/credentials/";
   static String openPayTutorUrl = "$baseUrl/smartlunch/open-pay/customer/";
+  static String openPayCardsUrl = "$baseUrl/smartlunch/open-pay/cards/";
+
+  //Croem
+  static String croemBaseUrl = "$baseUrl/core/croem/";
 
   //Recharges
   static String rechargeUrl = "$baseUrl/smartlunch/recharge/";

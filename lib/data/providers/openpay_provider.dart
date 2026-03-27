@@ -6,7 +6,7 @@ const _sandboxUrl = "https://sandbox-api.openpay.mx";
 const _productionUrl = "https://api.openpay.mx";
 
 class Openpay {
-  MethodChannel openpayPlatform = const MethodChannel("smart.lunch/openpay");
+  static MethodChannel openpayPlatform = const MethodChannel("smart.lunch/openpay");
 
   /// enable sandox or production mode
   /// False by default
@@ -18,21 +18,28 @@ class Openpay {
   /// Your public API Key
   final String apiKey;
 
-  Openpay(this.merchantId, this.apiKey, {this.isProductionMode = false});
+  final String deviceSessionId;
 
-  String get _merchantBaseUrl => '$baseUrl/v1/$merchantId';
-
-  String get baseUrl => isProductionMode ? _productionUrl : _sandboxUrl;
+  Openpay(
+    this.merchantId,
+    this.apiKey,
+    this.deviceSessionId, {
+    this.isProductionMode = false,
+  });
 
   Future<void> initializeOpenpay() async {
     try {
-      await openpayPlatform.invokeMethod('initialize', {
+      await Openpay.openpayPlatform.invokeMethod('initialize', {
         'merchantId': merchantId,
         'publicApiKey': apiKey,
         'isProductionMode': isProductionMode,
       });
+      developer.log("Openpay initialized", name: "openpay_provider");
+      
     } catch (e) {
       developer.log("Error initializing openpay: $e", name: "openpay_provider");
     }
   }
+
+  
 }

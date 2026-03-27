@@ -11,6 +11,10 @@ class SaleState {
   final double? totalPrice;
   final int? totalProducts;
   final bool? validatingSale;
+  final String? comments;
+  final bool? payWithBalance;
+  final bool? loading;
+
 
   SaleState({
     this.selectedUser,
@@ -22,6 +26,9 @@ class SaleState {
     this.isPresale = false,
     this.validatingSale = false,
     this.cart,
+    this.comments,
+    this.payWithBalance,
+    this.loading,
   });
 
   SaleState copyWith({
@@ -34,6 +41,9 @@ class SaleState {
     double? totalPrice,
     int? totalProducts,
     bool? validatingSale,
+    String? comments,
+    bool? payWithBalance,
+    bool? loading,
   }) {
     return SaleState(
       selectedUser: selectedUser ?? this.selectedUser,
@@ -45,6 +55,9 @@ class SaleState {
       totalPrice: totalPrice ?? this.totalPrice,
       totalProducts: totalProducts ?? this.totalProducts,
       validatingSale: validatingSale ?? this.validatingSale,
+      comments: comments ?? this.comments,
+      payWithBalance: payWithBalance ?? this.payWithBalance,
+      loading: loading ?? this.loading,
     );
   }
 }
@@ -61,5 +74,7 @@ class InitialSalesState extends SaleState {
         totalPrice: 0.0,
         totalProducts: 0,
         validatingSale: false,
+        comments: "",
+        payWithBalance: false,
       );
 }

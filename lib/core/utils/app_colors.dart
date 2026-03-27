@@ -26,4 +26,8 @@ static Color cardShadow = Color(0xff1d73c8);
 
 static Color tuitionGreen = Color(0xff12db87);
 static Color tuitionRed = Color(0xfff05756);
+
+static Color black = Color(0xff000000);
+
+
 }

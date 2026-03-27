@@ -17,6 +17,17 @@ class SalesBloc extends Bloc<SalesEvent, SaleState> {
     on<AddProductToSale>(_addProductToSale);
     on<RemoveProductFromSale>(_removeProductFromSale);
     on<ValidateSale>(_validateSale);
+    on<SaveComments>(_saveComments);
+    on<PayWithBalance>(_payWithBalance);
+  
+  }
+  void _payWithBalance(PayWithBalance event, Emitter<SaleState> emit) {
+    emit(state.copyWith(payWithBalance: event.payWithBalance));
+  }
+
+
+  void _saveComments(SaveComments event, Emitter<SaleState> emit) {
+    emit(state.copyWith(comments: event.comments));
   }
 
   void _validateSale(ValidateSale event, Emitter<SaleState> emit) {

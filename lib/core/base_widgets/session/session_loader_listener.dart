@@ -125,8 +125,8 @@ class SessionLoaderListener extends StatelessWidget {
             final cafeteriaState = context.read<CafeteriaBloc>().state;
 
             if (cafeteriaState is CafeteriaSuccess) {
-              if (cafeteriaState.cafeteriaSettings.openpayRecharge &&
-                  loadOpepaySettings) {
+              if ((cafeteriaState.cafeteriaSettings.openpayRecharge &&
+                  loadOpepaySettings)) {
                 context.read<OpenpayBloc>().add(ConfigureOpenpayEvent());
               } else {
                 if (shouldNavigate) {

@@ -32,6 +32,8 @@ class ProductsViewerList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("Categories $categories");
+    print("Products $products");
     return DefaultTabController(
       length: categories.length + 1,
       child: Column(

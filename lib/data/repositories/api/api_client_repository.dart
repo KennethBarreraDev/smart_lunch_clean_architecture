@@ -4,13 +4,11 @@ import 'dart:developer' as developer;
 import 'package:smart_lunch/data/repositories/session/session_repository.dart';
 
 class ApiClientRepository {
-
   final SessionRepository sessionRepository;
 
   ApiClientRepository(this.sessionRepository);
 
   Map<String, String> _baseHeaders({bool json = false}) {
-
     final session = sessionRepository.session;
 
     final headers = <String, String>{
@@ -25,37 +23,74 @@ class ApiClientRepository {
     return headers;
   }
 
-  Future<http.Response> get(String url, {String logName = "LOG"}) {
+  Map<String, String> _resolveHeaders({
+    required Map<String, String> base,
+    Map<String, String>? custom,
+  }) {
+    return custom ?? base;
+  }
+
+  Future<http.Response> get(
+    String url, {
+    String logName = "LOG",
+    Map<String, String>? headers,
+  }) {
     developer.log("GET $url", name: logName);
     return http.get(
       Uri.parse(url),
-      headers: _baseHeaders(),
+      headers: _resolveHeaders(
+        base: _baseHeaders(),
+        custom: headers,
+      ),
     );
   }
 
-  Future<http.Response> post(String url, Map<String, dynamic> body, {String logName = "LOG"}) {
+  Future<http.Response> post(
+    String url,
+    Map<String, dynamic> body, {
+    String logName = "LOG",
+    Map<String, String>? headers,
+  }) {
     developer.log("POST $url", name: logName);
     return http.post(
       Uri.parse(url),
-      headers: _baseHeaders(json: true),
+      headers: _resolveHeaders(
+        base: _baseHeaders(json: true),
+        custom: headers,
+      ),
       body: jsonEncode(body),
     );
   }
 
-  Future<http.Response> put(String url, Map<String, dynamic> body, {String logName = "LOG"}) {
+  Future<http.Response> put(
+    String url,
+    Map<String, dynamic> body, {
+    String logName = "LOG",
+    Map<String, String>? headers,
+  }) {
     developer.log("PUT $url", name: logName);
     return http.put(
       Uri.parse(url),
-      headers: _baseHeaders(json: true),
+      headers: _resolveHeaders(
+        base: _baseHeaders(json: true),
+        custom: headers,
+      ),
       body: jsonEncode(body),
     );
   }
 
-  Future<http.Response> delete(String url, {String logName = "LOG"}) {
+  Future<http.Response> delete(
+    String url, {
+    String logName = "LOG",
+    Map<String, String>? headers,
+  }) {
     developer.log("DELETE $url", name: logName);
     return http.delete(
       Uri.parse(url),
-      headers: _baseHeaders(),
+      headers: _resolveHeaders(
+        base: _baseHeaders(),
+        custom: headers,
+      ),
     );
   }
 }

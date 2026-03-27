@@ -5,6 +5,7 @@ import 'package:smart_lunch/blocs/app_version/app_version_bloc.dart';
 import 'package:smart_lunch/blocs/app_version/app_version_event.dart';
 import 'package:smart_lunch/blocs/cafeteria/cafeteria_bloc.dart';
 import 'package:smart_lunch/blocs/cafeteria_hours/cafeteria_hours_bloc.dart';
+import 'package:smart_lunch/blocs/croem/croem_bloc.dart';
 import 'package:smart_lunch/blocs/family/family_bloc.dart';
 import 'package:smart_lunch/blocs/history/history_bloc.dart';
 import 'package:smart_lunch/blocs/home_bloc/home_bloc.dart';
@@ -22,6 +23,7 @@ import 'package:smart_lunch/data/repositories/History/History_repository.dart';
 import 'package:smart_lunch/data/repositories/api/api_client_repository.dart';
 import 'package:smart_lunch/data/repositories/app_version/app_version_repository.dart';
 import 'package:smart_lunch/data/repositories/cafeteria/cafeteria_repository.dart';
+import 'package:smart_lunch/data/repositories/croem/croem_repository.dart';
 import 'package:smart_lunch/data/repositories/family/family_repository.dart';
 import 'package:smart_lunch/data/repositories/language/language_repository.dart';
 import 'package:smart_lunch/data/repositories/openpay/openpay_repository.dart';
@@ -77,6 +79,11 @@ void main() async {
         RepositoryProvider<OpenpayRepository>(
           create: (context) =>
               OpenpayRepository(context.read<ApiClientRepository>()),
+        ),
+
+        RepositoryProvider<CroemRepository>(
+          create: (context) =>
+              CroemRepository(context.read<ApiClientRepository>()),
         ),
 
         RepositoryProvider<ProductsRepository>(
@@ -141,6 +148,10 @@ void main() async {
 
           BlocProvider(
             create: (context) => OpenpayBloc(context.read<OpenpayRepository>()),
+          ),
+
+          BlocProvider(
+            create: (context) => CroemBloc(context.read<CroemRepository>()),
           ),
 
           BlocProvider(
