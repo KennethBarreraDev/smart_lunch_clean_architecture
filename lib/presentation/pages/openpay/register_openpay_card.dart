@@ -105,6 +105,7 @@ class RegisterOpenpayCard extends StatelessWidget {
                                                   openpayState.openpay,
                                                   openpayState.selectedCard,
                                                   openpayState.cards ?? [],
+                                                  ""
                                                 ),
                                               );
                                             }

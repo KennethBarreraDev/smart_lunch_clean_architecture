@@ -1,27 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sizer/sizer.dart';
+import 'package:smart_lunch/blocs/topup/topup_bloc.dart';
+import 'package:smart_lunch/blocs/topup/topup_state.dart';
 import 'package:smart_lunch/blocs/cafeteria/cafeteria_bloc.dart';
 import 'package:smart_lunch/blocs/cafeteria/cafeteria_state.dart';
-import 'package:smart_lunch/blocs/sales/sales_bloc.dart';
-import 'package:smart_lunch/blocs/sales/sales_state.dart';
 import 'package:smart_lunch/core/base_widgets/appbar/custom_appbar.dart';
 import 'package:smart_lunch/core/base_widgets/buttons/rounded_button.dart';
 import 'package:smart_lunch/core/base_widgets/scaffold/transparent_scaffold.dart';
-import 'package:smart_lunch/core/utils/allowed_users.dart';
 import 'package:smart_lunch/core/utils/app_colors.dart';
 import 'package:smart_lunch/core/utils/app_images.dart';
 import 'package:smart_lunch/core/utils/cafeteria_constants.dart';
 import 'package:smart_lunch/core/utils/date_utils.dart';
-import 'package:smart_lunch/core/utils/sale_utils.dart';
+import 'package:smart_lunch/core/utils/payment_method_utils.dart';
 import 'package:smart_lunch/l10n/app_localizations.dart';
 import 'package:smart_lunch/presentation/routes/routes.dart';
-import 'package:vector_graphics/vector_graphics.dart';
 
-class SuccessfulSalePage extends StatelessWidget {
-  const SuccessfulSalePage({super.key});
+class TopupSuccessPage extends StatelessWidget {
+  const TopupSuccessPage({super.key});
 
   static const _titleStyle = TextStyle(
     fontSize: 30,
@@ -52,7 +50,7 @@ class SuccessfulSalePage extends StatelessWidget {
             Stack(
               children: [
                 _header(),
-                _successImage(),
+                _statusImage(),
                 _titles(context),
                 _content(),
               ],
@@ -74,57 +72,69 @@ class SuccessfulSalePage extends StatelessWidget {
     );
   }
 
-  Widget _successImage() {
-    return Container(
-      margin: EdgeInsets.only(top: 15.h),
-      width: 100.w,
-      height: 18.h,
-      alignment: Alignment.center,
-      child: SizedBox(
-        height: 150,
-        child: SvgPicture(
-          AssetBytesLoader(AppImages.successfulSaleImage),
-          fit: BoxFit.contain,
-        ),
-      ),
+  Widget _statusImage() {
+    return BlocBuilder<TopupBloc, TopupState>(
+      builder: (context, state) {
+        final isSuccess =
+            state is TopupSuccessState && state.transactionStatus == "APPROVED";
+
+        return Container(
+          margin: EdgeInsets.only(top: 15.h),
+          width: 100.w,
+          height: 18.h,
+          alignment: Alignment.center,
+          child: SvgPicture.asset(
+            isSuccess ? AppImages.successRecharge : AppImages.errorRecharge,
+            fit: BoxFit.contain,
+          ),
+        );
+      },
     );
   }
 
   Widget _titles(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: 5.h),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+    return BlocBuilder<TopupBloc, TopupState>(
+      builder: (context, state) {
+        final isSuccess =
+            state is TopupSuccessState && state.transactionStatus == "APPROVED";
+
+        return Container(
+          margin: EdgeInsets.only(top: 5.h),
+          child: Column(
             children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    isSuccess
+                        ? AppLocalizations.of(context)!.successful_recharge
+                        : AppLocalizations.of(context)!.failed_recharge,
+                    style: _titleStyle,
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
               Text(
-                AppLocalizations.of(context)!.order_completed,
-                style: _titleStyle,
+                AppLocalizations.of(context)!.purchase_successfully_mesage,
+                style: _titleStyle.copyWith(
+                  fontSize: 15,
+                  color: Colors.white.withValues(alpha: 0.75),
+                  fontWeight: FontWeight.normal,
+                ),
                 textAlign: TextAlign.center,
               ),
             ],
           ),
-          const SizedBox(height: 8),
-          Text(
-            AppLocalizations.of(context)!.purchase_successfully_mesage,
-            style: _titleStyle.copyWith(
-              fontSize: 15,
-              color: Colors.white.withValues(alpha: 0.75),
-              fontWeight: FontWeight.normal,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 
   Widget _content() {
-    return BlocBuilder<SalesBloc, SaleState>(
-      builder: (context, saleState) {
-        if (saleState is! SaleSuccessState) {
+    return BlocBuilder<TopupBloc, TopupState>(
+      builder: (context, state) {
+        if (state is! TopupSuccessState) {
           return const SizedBox.shrink();
         }
 
@@ -136,58 +146,41 @@ class SuccessfulSalePage extends StatelessWidget {
           return const SizedBox.shrink();
         }
 
-        final user = saleState.selectedUser;
         final currency =
             cafeteriaState.selected.school?.currency ??
             CafeteriaConstants.defaultCurrency;
 
-        final isSelfSufficient =
-            (user?.selfSufficient ?? false) ||
-            (user?.user?.userType ?? "").toUpperCase() == AllowedUsers.TC.name;
+        final total = state.selectedRechargeAmount + state.commissionFee;
 
         return Container(
           margin: EdgeInsets.only(top: 40.h),
           width: 100.w,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             children: [
-              if (isSelfSufficient) _priceRow(saleState.finalPrice, currency),
+              _priceRow(total, currency),
 
-              _infoRow(
-                AppLocalizations.of(context)!.folio_message,
-                SaleUtils.formatFolio(saleState.saleId),
-              ),
+              const SizedBox(height: 10),
+
+              _infoRow("Folio", _formatFolio(state.transactionFolio)),
 
               _divider(),
 
               _infoRow(
-                AppLocalizations.of(context)!.purchase_date,
+                AppLocalizations.of(context)!.date,
                 CustomDateUtils.formatDateWithMinutes(DateTime.now()),
               ),
 
               _divider(),
 
               _infoRow(
-                AppLocalizations.of(context)!.delivery_date,
-                SaleUtils.formatDeliveryDate(saleState),
+                AppLocalizations.of(context)!.payment_method,
+                PaymentMethodUtils.getMethodName(state.selectedMethod),
               ),
 
-              if (!isSelfSufficient) ...[
-                _divider(),
-                _infoRow(
-                  AppLocalizations.of(context)!.deliver_to,
-                  "${user?.user?.firstName ?? ""} ${user?.user?.lastName ?? ""}",
-                ),
-                _divider(),
-                _infoRow(
-                  AppLocalizations.of(context)!.total_items,
-                  (saleState.cartProducts ?? []).length.toString(),
-                ),
-                _divider(),
-                _infoRow(
-                  AppLocalizations.of(context)!.subtotal,
-                  "\$${(saleState.totalPrice ?? 0.0).toStringAsFixed(2)} $currency",
-                ),
-              ],
+              _divider(),
+
+              _infoRow("Transaction ID", state.topUpId ?? "-"),
 
               const SizedBox(height: 30),
 
@@ -204,13 +197,13 @@ class SuccessfulSalePage extends StatelessWidget {
     );
   }
 
-  Widget _priceRow(String? price, String currency) {
+  Widget _priceRow(double total, String currency) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text("Total", style: _labelStyle.copyWith(fontSize: 22)),
         Text(
-          "\$${price ?? "0"} $currency",
+          "\$${total.toStringAsFixed(2)} $currency",
           style: _valueStyle.copyWith(fontSize: 26),
         ),
       ],
@@ -239,5 +232,10 @@ class SuccessfulSalePage extends StatelessWidget {
 
   Widget _divider() {
     return Divider(color: AppColors.darkBlue.withValues(alpha: 0.15));
+  }
+
+  String _formatFolio(String folio) {
+    if (folio.length <= 12) return folio;
+    return folio.substring(folio.length - 12);
   }
 }

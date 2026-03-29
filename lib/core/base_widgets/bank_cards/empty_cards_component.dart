@@ -18,7 +18,6 @@ class EmptyCardsComponent extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(16)),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-          margin: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,

@@ -45,20 +45,17 @@ class SuccessfulPreSalePage extends StatelessWidget {
     return TransparentScaffold(
       selectedOption: "Inicio",
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            children: [
-              Stack(
-                children: [
-                  _header(),
-                  _successImage(),
-                  _titles(context),
-                  _content(),
-                ],
-              ),
-            ],
-          ),
+        child: Column(
+          children: [
+            Stack(
+              children: [
+                _header(),
+                _successImage(),
+                _titles(context),
+                _content(),
+              ],
+            ),
+          ],
         ),
       ),
     );
@@ -66,7 +63,7 @@ class SuccessfulPreSalePage extends StatelessWidget {
 
   Widget _header() {
     return CustomAppBar(
-      height: 20.h,
+      height: 38.h,
       showPageTitle: false,
       showDrawer: false,
       image: AppImages.appBarLongImg,
@@ -77,8 +74,9 @@ class SuccessfulPreSalePage extends StatelessWidget {
 
   Widget _successImage() {
     return Container(
-      margin: EdgeInsets.only(top: 10.h),
+      margin: EdgeInsets.only(top: 15.h),
       width: 100.w,
+      height: 18.h,
       alignment: Alignment.center,
       child: SizedBox(
         height: 150,
@@ -90,16 +88,21 @@ class SuccessfulPreSalePage extends StatelessWidget {
     );
   }
 
-  Widget _titles(BuildContext context) {
+   Widget _titles(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 8.h),
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      margin: EdgeInsets.only(top: 5.h),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
-            AppLocalizations.of(context)!.order_completed,
-            style: _titleStyle,
-            textAlign: TextAlign.center,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                AppLocalizations.of(context)!.order_completed,
+                style: _titleStyle,
+                textAlign: TextAlign.center,
+              ),
+            ],
           ),
           const SizedBox(height: 8),
           Text(
@@ -138,7 +141,7 @@ class SuccessfulPreSalePage extends StatelessWidget {
         final user = saleState.selectedUser;
 
         return Container(
-          margin: EdgeInsets.only(top: 20.h),
+          margin: EdgeInsets.only(top: 40.h),
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             children: [
@@ -179,8 +182,7 @@ class SuccessfulPreSalePage extends StatelessWidget {
 
   Widget _richText(BuildContext context, SaleSuccessState state, dynamic user) {
     final folio = SaleUtils.formatFolio(state.saleId);
-    final date =  SaleUtils.formatDeliveryDate(state);
-
+    final date = SaleUtils.formatDeliveryDate(state);
 
     return RichText(
       text: TextSpan(

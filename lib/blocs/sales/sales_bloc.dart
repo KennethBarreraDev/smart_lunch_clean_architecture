@@ -19,7 +19,6 @@ class SalesBloc extends Bloc<SalesEvent, SaleState> {
     on<ValidateSale>(_validateSale);
     on<SaveComments>(_saveComments);
     on<PayWithBalance>(_payWithBalance);
-    on<ResetSaleEvent>(_resetSale);
     on<IsLoadingSales>(_isLoadingSales);
     on<SellProducts>(_sellProducts);
   }

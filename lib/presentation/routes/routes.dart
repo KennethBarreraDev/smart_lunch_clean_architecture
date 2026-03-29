@@ -10,7 +10,11 @@ class AppRoutes {
   static String registerOpenpayCard = "/register-openpay-card";
   static String selectCardToPay = "/select-card-to-pay";
   static String successfulSale = "/successful-sale";
-    static String successfulPresale = "/successful-sale";
+  static String successfulPresale = "/successful-presale";
+  static String topupPage = "/topup-page";
+  static String panamaCardsSelector = "/panama-cards-selector";
+  static String topupStatus = "/topup-status";
+
 
 
   static getCleanRouteName(String route) {

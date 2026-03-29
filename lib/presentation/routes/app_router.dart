@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:smart_lunch/core/base_widgets/bank_cards/panama/panama_cards_selector.dart';
 import 'package:smart_lunch/presentation/pages/auth/auth_page.dart';
 import 'package:smart_lunch/presentation/pages/croem/register_croem_card.dart';
 import 'package:smart_lunch/presentation/pages/home/home_page.dart';
@@ -10,7 +11,9 @@ import 'package:smart_lunch/presentation/pages/select-card-to-pay/SelectCardToPa
 import 'package:smart_lunch/presentation/pages/splash/splash_page.dart';
 import 'package:smart_lunch/presentation/pages/successful_sale/successful_presale_page.dart';
 import 'package:smart_lunch/presentation/pages/successful_sale/sucessful_sale_page.dart';
+import 'package:smart_lunch/presentation/pages/successful_topup/sucessful_toup_page.dart';
 import 'package:smart_lunch/presentation/pages/summary_sale/summary_sale_page.dart';
+import 'package:smart_lunch/presentation/pages/top_up/top_up_page.dart';
 import 'package:smart_lunch/presentation/routes/routes.dart';
 
 class AppRouter {
@@ -90,6 +93,24 @@ class AppRouter {
         name: AppRoutes.getCleanRouteName(AppRoutes.summarySale),
         path: AppRoutes.summarySale,
         builder: (context, state) => const SummarySalePage(),
+      ),
+
+      GoRoute(
+        name: AppRoutes.getCleanRouteName(AppRoutes.panamaCardsSelector),
+        path: AppRoutes.panamaCardsSelector,
+        builder: (context, state) => const PanamaCardsSelector(),
+      ),
+
+      GoRoute(
+        name: AppRoutes.getCleanRouteName(AppRoutes.topupPage),
+        path: AppRoutes.topupPage,
+        builder: (context, state) => TopupPage(),
+      ),
+
+      GoRoute(
+        name: AppRoutes.getCleanRouteName(AppRoutes.topupStatus),
+        path: AppRoutes.topupStatus,
+        builder: (context, state) => TopupSuccessPage(),
       ),
     ],
   );

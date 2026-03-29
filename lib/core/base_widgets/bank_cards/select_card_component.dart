@@ -8,9 +8,11 @@ import 'package:smart_lunch/data/models/openpay_card.dart';
 import 'package:smart_lunch/l10n/app_localizations.dart';
 
 class SelectCardComponent extends StatelessWidget {
-  const SelectCardComponent({super.key, required this.selectedCard});
+  const SelectCardComponent({super.key, required this.selectedCard, required this.onSelectCard});
 
   final GenericCard selectedCard;
+  final VoidCallback onSelectCard;
+
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,7 @@ class SelectCardComponent extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        // navegación
+        onSelectCard();
       },
       child: Padding(
         padding: const EdgeInsets.only(top: 5),
@@ -46,7 +48,7 @@ class SelectCardComponent extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(16)),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-          margin: const EdgeInsets.symmetric(horizontal: 16),
+          
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

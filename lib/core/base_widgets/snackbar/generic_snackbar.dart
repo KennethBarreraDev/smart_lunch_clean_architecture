@@ -9,42 +9,68 @@ void showCustomSnackBar({
 }) {
   if (bannerType.isEmpty) return;
 
-  final snackBar = SnackBar(
-    behavior: SnackBarBehavior.floating,
-    margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-    backgroundColor: Colors.white,
-    elevation: 4,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-    content: Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        getIconFromBannerType(bannerType),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Text(
-            bannerMessage,
-            style: TextStyle(
-              color: AppColors.darkBlue,
-              fontWeight: FontWeight.w300,
-              fontSize: 18.0,
-            ),
+  final overlay = Overlay.of(context);
+  final screenHeight = MediaQuery.of(context).size.height;
+
+  late OverlayEntry overlayEntry;
+
+  overlayEntry = OverlayEntry(
+    builder: (context) => Positioned(
+      top: MediaQuery.of(context).padding.top + 12,
+      left: 16,
+      right: 16,
+      child: Material(
+        color: Colors.transparent,
+        child: Container(
+          height: screenHeight * 0.2,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: const [
+              BoxShadow(
+                blurRadius: 10,
+                color: Colors.black26,
+              ),
+            ],
+          ),
+          child: Row(
+            children: [
+              getIconFromBannerType(bannerType),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  bannerMessage,
+                  style: TextStyle(
+                    color: AppColors.darkBlue,
+                    fontWeight: FontWeight.w300,
+                    fontSize: 18.0,
+                  ),
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  overlayEntry.remove(); // ✅ ahora sí funciona
+                },
+                child: const Text(
+                  'Cerrar',
+                  style: TextStyle(color: Color(0xff1e2f97)),
+                ),
+              ),
+            ],
           ),
         ),
-      ],
+      ),
     ),
-    action: SnackBarAction(
-      label: 'Cerrar',
-      textColor: const Color(0xff1e2f97),
-      onPressed: () {
-        ScaffoldMessenger.of(context).hideCurrentSnackBar();
-      },
-    ),
-    duration: const Duration(seconds: 4),
   );
 
-  ScaffoldMessenger.of(context)
-    ..hideCurrentSnackBar()
-    ..showSnackBar(snackBar);
+  overlay.insert(overlayEntry);
+
+  Future.delayed(const Duration(seconds: 4), () {
+    if (overlayEntry.mounted) {
+      overlayEntry.remove();
+    }
+  });
 }
 
 Widget getIconFromBannerType(String bannerType) {

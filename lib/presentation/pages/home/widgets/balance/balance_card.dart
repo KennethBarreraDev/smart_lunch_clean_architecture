@@ -111,6 +111,7 @@ Widget _baseCard({
                 : RegularBalanceCard(
                     cafeteriaUser: cafeteriaUser,
                     cafeteria: cafeteria,
+                    cafeteriaSetting: cafeteriaSetting,
                     balance: balance,
                     hasLowBalance: hasLowBalance,
                     hasDebt: hasDebt,
