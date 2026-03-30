@@ -1,6 +1,14 @@
-abstract class UserEvent {
-}
+abstract class UserEvent {}
 
 class LoadUsersEvent extends UserEvent {
-  LoadUsersEvent();
+  final bool isPanama;
+
+  LoadUsersEvent({required this.isPanama});
+}
+
+
+class ToggleMembershipDebtorsModalVisibillity extends UserEvent {
+  final bool show;
+
+  ToggleMembershipDebtorsModalVisibillity({required this.show});
 }

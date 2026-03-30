@@ -21,6 +21,7 @@ import 'package:smart_lunch/core/base_widgets/session/session_loader_listener.da
 import 'package:smart_lunch/core/utils/app_images.dart';
 import 'package:smart_lunch/presentation/pages/home/widgets/balance/balance_card.dart';
 import 'package:smart_lunch/presentation/pages/home/widgets/home_body/base_home_body.dart';
+import 'package:smart_lunch/presentation/pages/membership/widgets/memberships_modal.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -41,6 +42,25 @@ class HomePage extends StatelessWidget {
                 return const AppVersionModal();
               },
             );*/
+          },
+        ),
+
+        BlocListener<UsersBloc, UsersState>(
+          listener: (context, state) {
+            if (state is UsersLoaded) {
+              if (state.showMembershipModal) {
+                showDialog(
+                  context: context,
+                  useSafeArea: true,
+                  barrierDismissible: false,
+                  builder: (BuildContext context) {
+                    return PendingMembershipModal(
+                      membershipDebtors: state.pendingUserMemberships,
+                    );
+                  },
+                );
+              }
+            }
           },
         ),
       ],

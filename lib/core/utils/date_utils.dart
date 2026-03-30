@@ -18,4 +18,8 @@ class CustomDateUtils {
       'es',
     ).format(date).toString();
   }
+
+  static String formatDateWithoutTime(DateTime date) {
+    return DateFormat('dd/MM/yyyy').format(date);
+  }
 }

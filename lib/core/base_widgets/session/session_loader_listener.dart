@@ -24,6 +24,7 @@ import 'package:smart_lunch/blocs/users/user_event.dart';
 import 'package:smart_lunch/blocs/users/users_bloc.dart';
 import 'package:smart_lunch/blocs/users/users_state.dart';
 import 'package:smart_lunch/core/base_widgets/snackbar/app_snackbar.dart';
+import 'package:smart_lunch/core/constants/countries.dart';
 import 'package:smart_lunch/presentation/routes/routes.dart';
 
 class SessionLoaderListener extends StatelessWidget {
@@ -57,7 +58,13 @@ class SessionLoaderListener extends StatelessWidget {
         BlocListener<CafeteriaBloc, CafeteriaState>(
           listener: (context, state) {
             if (state is CafeteriaSuccess) {
-              context.read<UsersBloc>().add(LoadUsersEvent());
+              context.read<UsersBloc>().add(
+                LoadUsersEvent(
+                  isPanama: Countries.isPanama(
+                    state.selected.school?.country ?? "",
+                  ),
+                ),
+              );
             }
 
             if (state is CafeteriaError) {

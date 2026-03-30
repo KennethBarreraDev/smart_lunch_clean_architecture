@@ -10,6 +10,7 @@ class CafeteriaUser {
   final double? credit;
   final double? scholarship;
   final String? customAllergy;
+  final String? membershipExpiration;
   final double? debt;
   final bool? selfSufficient;
   final bool? membership;
@@ -25,6 +26,7 @@ class CafeteriaUser {
     this.selfSufficient,
     this.membership,
     this.school,
+    this.membershipExpiration,
   });
 
   CafeteriaUser copyWith({
@@ -38,6 +40,7 @@ class CafeteriaUser {
     bool? selfSufficient,
     bool? membership,
     int? school,
+    String? membershipExpiration,
   }) {
     return CafeteriaUser(
       id: id ?? this.id,
@@ -50,6 +53,7 @@ class CafeteriaUser {
       selfSufficient: selfSufficient ?? this.selfSufficient,
       membership: membership ?? this.membership,
       school: school ?? this.school,
+      membershipExpiration: membershipExpiration ?? this.membershipExpiration,
     );
   }
 
@@ -65,6 +69,7 @@ class CafeteriaUser {
       'selfSufficient': selfSufficient,
       'membership': membership,
       'school': school,
+      'membership_expiration': membershipExpiration,
     };
   }
 
@@ -90,6 +95,9 @@ class CafeteriaUser {
       selfSufficient: map['self_sufficient'] as bool?,
       membership: map['membership'] as bool?,
       school: map['school'] as int?,
+      membershipExpiration: map["membership_expiration"] != null
+          ? map['membership_expiration'] as String?
+          : null,
     );
   }
 

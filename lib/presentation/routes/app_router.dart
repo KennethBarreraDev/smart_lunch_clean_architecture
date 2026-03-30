@@ -5,6 +5,7 @@ import 'package:smart_lunch/presentation/pages/croem/register_croem_card.dart';
 import 'package:smart_lunch/presentation/pages/home/home_page.dart';
 import 'package:smart_lunch/presentation/pages/legal_information/privacity.dart';
 import 'package:smart_lunch/presentation/pages/legal_information/terms_and_conditions.dart';
+import 'package:smart_lunch/presentation/pages/membership/membership_debtors_page.dart';
 import 'package:smart_lunch/presentation/pages/openpay/register_openpay_card.dart';
 import 'package:smart_lunch/presentation/pages/sale/sale_page.dart';
 import 'package:smart_lunch/presentation/pages/select-card-to-pay/SelectCardToPay.dart';
@@ -111,6 +112,12 @@ class AppRouter {
         name: AppRoutes.getCleanRouteName(AppRoutes.topupStatus),
         path: AppRoutes.topupStatus,
         builder: (context, state) => TopupSuccessPage(),
+      ),
+
+      GoRoute(
+        name: AppRoutes.getCleanRouteName(AppRoutes.membershipsDebtors),
+        path: AppRoutes.membershipsDebtors,
+        builder: (context, state) => MembershipDebtorsPage(),
       ),
     ],
   );

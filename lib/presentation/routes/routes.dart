@@ -14,6 +14,7 @@ class AppRoutes {
   static String topupPage = "/topup-page";
   static String panamaCardsSelector = "/panama-cards-selector";
   static String topupStatus = "/topup-status";
+  static String membershipsDebtors = "/memberships-debtors";
 
 
 
