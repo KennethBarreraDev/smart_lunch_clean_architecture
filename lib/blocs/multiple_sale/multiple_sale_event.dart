@@ -49,3 +49,7 @@ class RemoveProductFromMultisale extends MultipleSaleEvent {
 class ResetMultiplesaleValue extends MultipleSaleEvent {
   ResetMultiplesaleValue();
 }
+
+class OnConfirmSaleDateInfo extends MultipleSaleEvent{
+  OnConfirmSaleDateInfo();
+}

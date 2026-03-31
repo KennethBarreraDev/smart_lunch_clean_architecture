@@ -62,7 +62,8 @@ class MultisaleProducts extends StatelessWidget {
                           return UserBalanceCard(
                             user: multisaleState.selectedUser,
                             familyBalance: familyState.balance.toString(),
-                            date: multisaleState.selectedSaleDate?.saleDate ??
+                            date:
+                                multisaleState.selectedSaleDate?.saleDate ??
                                 DateTime.now(),
                           );
                         },
@@ -94,8 +95,10 @@ class MultisaleProducts extends StatelessWidget {
 
                                   return ProductsViewerList(
                                     categories: productsState.categories,
-                                    cart: multipleSaleState
-                                            .selectedSaleDate?.cart ??
+                                    cart:
+                                        multipleSaleState
+                                            .selectedSaleDate
+                                            ?.cart ??
                                         {},
                                     products: productsState.products,
 
@@ -105,41 +108,40 @@ class MultisaleProducts extends StatelessWidget {
                                           familyState.balance) {
                                         showAwesomeSnackBar(
                                           context: context,
-                                          title: AppLocalizations.of(context)!
-                                              .please_wait,
-                                          message:
-                                              AppLocalizations.of(context)!
-                                                  .purchase_exceed_balance_message,
+                                          title: AppLocalizations.of(
+                                            context,
+                                          )!.please_wait,
+                                          message: AppLocalizations.of(
+                                            context,
+                                          )!.purchase_exceed_balance_message,
                                           contentType: ContentType.warning,
                                         );
                                       } else {
-                                        context
-                                            .read<MultipleSaleBloc>()
-                                            .add(AddProductToMultisale(product));
+                                        context.read<MultipleSaleBloc>().add(
+                                          AddProductToMultisale(product),
+                                        );
                                       }
                                     },
 
                                     removeItem: (product) {
-                                      context
-                                          .read<MultipleSaleBloc>()
-                                          .add(RemoveProductFromMultisale(
-                                              product));
+                                      context.read<MultipleSaleBloc>().add(
+                                        RemoveProductFromMultisale(product),
+                                      );
                                     },
 
                                     loadProducts: () {
                                       context.read<ProductsBloc>().add(
-                                            LoadProductsEvent(
-                                              cafeteria:
-                                                  cafeteriaState.selected,
-                                              userSelectedDate:
-                                                  multipleSaleState
-                                                          .selectedSaleDate
-                                                          ?.saleDate ??
-                                                      DateTime.now(),
-                                              omitFilters: false,
-                                              isPresale: true,
-                                            ),
-                                          );
+                                        LoadProductsEvent(
+                                          cafeteria: cafeteriaState.selected,
+                                          userSelectedDate:
+                                              multipleSaleState
+                                                  .selectedSaleDate
+                                                  ?.saleDate ??
+                                              DateTime.now(),
+                                          omitFilters: false,
+                                          isPresale: true,
+                                        ),
+                                      );
                                     },
 
                                     isPresale: true,
@@ -150,7 +152,8 @@ class MultisaleProducts extends StatelessWidget {
                                         height: 80,
                                         color: Colors.white,
                                         padding: const EdgeInsets.symmetric(
-                                            horizontal: 16),
+                                          horizontal: 16,
+                                        ),
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
@@ -160,8 +163,9 @@ class MultisaleProducts extends StatelessWidget {
                                                   MainAxisAlignment.center,
                                               children: [
                                                 Text(
-                                                  AppLocalizations.of(context)!
-                                                      .subtotal,
+                                                  AppLocalizations.of(
+                                                    context,
+                                                  )!.subtotal,
                                                   style: const TextStyle(
                                                     fontSize: 15,
                                                     fontFamily: "Comfortaa",
@@ -171,8 +175,7 @@ class MultisaleProducts extends StatelessWidget {
                                                 Text(
                                                   "\$${(multipleSaleState.selectedSaleDate?.totalPrice ?? 0.0).toStringAsFixed(2)}",
                                                   style: TextStyle(
-                                                    color:
-                                                        AppColors.darkBlue,
+                                                    color: AppColors.darkBlue,
                                                     fontSize: 20,
                                                     fontFamily: "Outfit",
                                                   ),
@@ -187,14 +190,13 @@ class MultisaleProducts extends StatelessWidget {
                                                 children: [
                                                   Icon(
                                                     Icons.edit_note,
-                                                    color:
-                                                        AppColors.lightBlue,
+                                                    color: AppColors.lightBlue,
                                                   ),
                                                   const SizedBox(width: 4),
                                                   Text(
                                                     AppLocalizations.of(
-                                                            context)!
-                                                        .comments_message,
+                                                      context,
+                                                    )!.comments_message,
                                                     style: TextStyle(
                                                       color:
                                                           AppColors.lightBlue,
@@ -206,27 +208,32 @@ class MultisaleProducts extends StatelessWidget {
                                             ),
 
                                             GestureDetector(
-                                              onTap: () {},
+                                              onTap: () {
+                                                context
+                                                    .read<MultipleSaleBloc>()
+                                                    .add(
+                                                      OnConfirmSaleDateInfo(),
+                                                    );
+                                              },
                                               child: Container(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
+                                                padding: EdgeInsets.symmetric(
                                                   horizontal: 10,
                                                   vertical: 10,
                                                 ),
                                                 decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.circular(16),
-                                                  color: AppColors
-                                                      .tuitionGreen
-                                                      .withOpacity(0.2),
+                                                  color: AppColors.tuitionGreen
+                                                      .withValues(alpha: 0.2),
                                                 ),
                                                 child: Text(
-                                                  AppLocalizations.of(context)!
-                                                      .confirm_button,
+                                                  AppLocalizations.of(
+                                                    context,
+                                                  )!.confirm_button,
                                                   style: TextStyle(
                                                     fontSize: 14,
-                                                    color: AppColors
-                                                        .tuitionGreen,
+                                                    color:
+                                                        AppColors.tuitionGreen,
                                                   ),
                                                 ),
                                               ),
