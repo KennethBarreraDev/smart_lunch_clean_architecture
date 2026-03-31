@@ -19,8 +19,8 @@ class SummarySelectedChild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        color: Colors.white,
+      decoration:  BoxDecoration(
+        color: AppColors.white,
         borderRadius: BorderRadius.all(Radius.circular(16)),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),

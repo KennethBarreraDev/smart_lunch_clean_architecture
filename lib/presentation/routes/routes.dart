@@ -5,6 +5,7 @@ class AppRoutes {
   static String termsAndConditionsRoute = "/terms-and-conditions";
   static String privacyPolicyRoute = "/privacy-policy";
   static String saleRoute = "/sale";
+  static String multiSaleRoute = "/multi-sale";
   static String summarySale = "/summary-sale";
   static String registerCroemCard = "/register-croem-card";
   static String registerOpenpayCard = "/register-openpay-card";
@@ -15,8 +16,9 @@ class AppRoutes {
   static String panamaCardsSelector = "/panama-cards-selector";
   static String topupStatus = "/topup-status";
   static String membershipsDebtors = "/memberships-debtors";
-  static String membershipStatus = "membership-status";
-
+  static String membershipStatus = "/membership-status";
+  static String multisaleCalendar = "/multisale-calendar";
+  static String multisaleProducts = "/multisale-products";
 
   static getCleanRouteName(String route) {
     return route.replaceAll("/", "");

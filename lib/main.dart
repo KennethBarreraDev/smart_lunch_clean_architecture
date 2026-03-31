@@ -12,6 +12,7 @@ import 'package:smart_lunch/blocs/home_bloc/home_bloc.dart';
 import 'package:smart_lunch/blocs/language/language_bloc.dart';
 import 'package:smart_lunch/blocs/language/language_event.dart';
 import 'package:smart_lunch/blocs/memberships/memberships_bloc.dart';
+import 'package:smart_lunch/blocs/multiple_sale/multiple_sale_bloc.dart';
 import 'package:smart_lunch/blocs/openpay/openpay_bloc.dart';
 import 'package:smart_lunch/blocs/products/products_bloc.dart';
 import 'package:smart_lunch/blocs/sales/sales_bloc.dart';
@@ -178,6 +179,11 @@ void main() async {
           BlocProvider(
             create: (context) =>
                 MembershipsBloc(context.read<MembershipsRepository>()),
+          ),
+
+          BlocProvider(
+            create: (context) =>
+                MultipleSaleBloc(context.read<SalesRepository>()),
           ),
 
           BlocProvider(create: (context) => HomeBloc()),

@@ -7,6 +7,8 @@ import 'package:smart_lunch/presentation/pages/legal_information/privacity.dart'
 import 'package:smart_lunch/presentation/pages/legal_information/terms_and_conditions.dart';
 import 'package:smart_lunch/presentation/pages/membership/membership_debtors_page.dart';
 import 'package:smart_lunch/presentation/pages/membership/widgets/successful_membership_payment.dart';
+import 'package:smart_lunch/presentation/pages/multi_sale/widgets/multisale_calendar.dart';
+import 'package:smart_lunch/presentation/pages/multi_sale/widgets/multisale_products.dart';
 import 'package:smart_lunch/presentation/pages/openpay/register_openpay_card.dart';
 import 'package:smart_lunch/presentation/pages/sale/sale_page.dart';
 import 'package:smart_lunch/presentation/pages/select-card-to-pay/SelectCardToPay.dart';
@@ -128,6 +130,17 @@ class AppRouter {
         name: AppRoutes.getCleanRouteName(AppRoutes.membershipStatus),
         path: AppRoutes.membershipStatus,
         builder: (context, state) => MembershipSuccessPage(),
+      ),
+
+      GoRoute(
+        name: AppRoutes.getCleanRouteName(AppRoutes.multisaleCalendar),
+        path: AppRoutes.multisaleCalendar,
+        builder: (context, state) => MultisaleCalendar(),
+      ),
+      GoRoute(
+        name: AppRoutes.getCleanRouteName(AppRoutes.multisaleProducts),
+        path: AppRoutes.multisaleProducts,
+        builder: (context, state) => MultisaleProducts(),
       ),
     ],
   );

@@ -47,4 +47,8 @@ class ApiUrls {
 
   //Recharges
   static String rechargeUrl = "$baseUrl/smartlunch/recharge/";
+
+  //Multisales
+  String multisaleProducts = "$baseUrl/smartlunch/sale/multi_presale/";
+
 }

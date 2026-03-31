@@ -5,7 +5,7 @@ abstract class ProductsEvent {
 }
 
 class LoadProductsEvent extends ProductsEvent {
-    Cafeteria cafeteria;
+  Cafeteria cafeteria;
   DateTime? userSelectedDate;
   bool omitFilters;
   bool isPresale;

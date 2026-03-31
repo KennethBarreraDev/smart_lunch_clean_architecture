@@ -5,6 +5,7 @@ import 'package:smart_lunch/core/constants/user_roles.dart';
 import 'package:smart_lunch/core/http/api_urls.dart';
 import 'package:smart_lunch/core/utils/sale_types.dart';
 import 'package:smart_lunch/data/models/cafeteria_user_model.dart';
+import 'package:smart_lunch/data/models/multisale_product_model.dart';
 import 'package:smart_lunch/data/models/presale_model.dart';
 import 'package:smart_lunch/data/repositories/api/api_client_repository.dart';
 
@@ -220,6 +221,63 @@ class SalesRepository {
     } catch (e) {
       developer.log("Failed to sell products: $e", name: "sellProducts");
       return {};
+    }
+  }
+
+  Future<bool> placeMultisale({
+    List<MultisaleProducts>? multisaleProducts,
+    String? userBuyer,
+  }) async {
+    try {
+      List<dynamic> sales = [];
+
+      for (MultisaleProducts date in (multisaleProducts ?? [])) {
+        List<Map<String, int>> orders = [];
+
+        if (date.cart.isNotEmpty) {
+          for (MapEntry<int, int> cartItem in date.cart.entries) {
+            orders.add({"product": cartItem.key, "quantity": cartItem.value});
+          }
+
+          sales.add({
+            "orders": orders,
+            "comment": date.comment,
+            "sale_type": "DI",
+            "scheduled_date": DateFormat(
+              "yyyy-MM-dd'T'HH:mm:ss.'000Z'",
+            ).format(date.saleDate.toUtc()),
+          });
+        }
+      }
+
+      Map<String, dynamic> body = {};
+      body = {
+        "sales": sales,
+        "user_buyer": userBuyer,
+        "payment_method": "SMART_COIN",
+      };
+
+      developer.log(body.toString(), name: "placeMultisaleBody");
+
+      final response = await api.post(
+        ApiUrls.mobileSales,
+        body,
+        logName: "placeMultisale",
+      );
+
+      developer.log(
+        "Status code: ${response.statusCode}, body: ${response.body}",
+        name: "placeMultisale",
+      );
+
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      developer.log("Failed to sell products: $e", name: "sellProducts");
+      return false;
     }
   }
 }

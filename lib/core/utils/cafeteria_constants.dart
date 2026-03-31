@@ -14,6 +14,7 @@ class CafeteriaConstants {
   static double croemFee = 3.5;
   static double yappyFee = 2;
   static double panamaMembershipPrice = 1.20;
+  static double multipleSaleDisccount = 3.25;
 
   static TopupSettings getTopupSetting(
     CafeteriaSetting settings,
