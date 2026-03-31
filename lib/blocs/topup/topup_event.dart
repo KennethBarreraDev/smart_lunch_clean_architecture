@@ -58,7 +58,7 @@ class TopupBalanceEvent extends TopupEvent {
   String? deviceSessionID;
   String? cvv;
   String? tokenizedCard;
-  AllowedTopupMethods allowedTopupMethods;
+  AllowedPaymentMethods allowedTopupMethods;
 
   TopupBalanceEvent({
     required this.amount,

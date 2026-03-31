@@ -150,6 +150,7 @@ class _TopupPageState extends State<TopupPage> {
                           AppRoutes.getCleanRouteName(
                             AppRoutes.panamaCardsSelector,
                           ),
+                          extra: true
                         );
                       } else {
                         if (cafeteriaState.cafeteriaSettings.openpayRecharge) {
@@ -169,7 +170,7 @@ class _TopupPageState extends State<TopupPage> {
                                   "",
                               deviceSessionID:
                                   (openpayState).openpay!.deviceSessionId,
-                              allowedTopupMethods: AllowedTopupMethods.openpay,
+                              allowedTopupMethods: AllowedPaymentMethods.openpay,
                             ),
                           );
                         } else {
@@ -186,7 +187,7 @@ class _TopupPageState extends State<TopupPage> {
                               cardId: null,
                               deviceSessionID: null,
                               allowedTopupMethods:
-                                  AllowedTopupMethods.mercadoPago,
+                                  AllowedPaymentMethods.mercadoPago,
                             ),
                           );
                         }

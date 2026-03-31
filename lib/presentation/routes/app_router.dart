@@ -6,6 +6,7 @@ import 'package:smart_lunch/presentation/pages/home/home_page.dart';
 import 'package:smart_lunch/presentation/pages/legal_information/privacity.dart';
 import 'package:smart_lunch/presentation/pages/legal_information/terms_and_conditions.dart';
 import 'package:smart_lunch/presentation/pages/membership/membership_debtors_page.dart';
+import 'package:smart_lunch/presentation/pages/membership/widgets/successful_membership_payment.dart';
 import 'package:smart_lunch/presentation/pages/openpay/register_openpay_card.dart';
 import 'package:smart_lunch/presentation/pages/sale/sale_page.dart';
 import 'package:smart_lunch/presentation/pages/select-card-to-pay/SelectCardToPay.dart';
@@ -99,7 +100,10 @@ class AppRouter {
       GoRoute(
         name: AppRoutes.getCleanRouteName(AppRoutes.panamaCardsSelector),
         path: AppRoutes.panamaCardsSelector,
-        builder: (context, state) => const PanamaCardsSelector(),
+        builder: (context, state) {
+          final calledFromTopup = state.extra as bool? ?? false;
+          return PanamaCardsSelector(calledFromTopup: calledFromTopup);
+        },
       ),
 
       GoRoute(
@@ -118,6 +122,12 @@ class AppRouter {
         name: AppRoutes.getCleanRouteName(AppRoutes.membershipsDebtors),
         path: AppRoutes.membershipsDebtors,
         builder: (context, state) => MembershipDebtorsPage(),
+      ),
+
+      GoRoute(
+        name: AppRoutes.getCleanRouteName(AppRoutes.membershipStatus),
+        path: AppRoutes.membershipStatus,
+        builder: (context, state) => MembershipSuccessPage(),
       ),
     ],
   );

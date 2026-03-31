@@ -1,12 +1,14 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_lunch/core/utils/cafeteria_constants.dart';
+import 'package:smart_lunch/core/utils/memberships_payments_response.dart';
 import 'package:smart_lunch/data/models/cafeteria_user_model.dart';
+import 'package:smart_lunch/data/repositories/memberships/memberships_repository.dart';
 import 'package:smart_lunch/data/repositories/topup/topup_repository.dart';
 import 'memberships_event.dart';
 import 'memberships_state.dart';
 
 class MembershipsBloc extends Bloc<MembershipsEvent, MembershipsState> {
-  final TopupRepository repository;
+  final MembershipsRepository repository;
 
   MembershipsBloc(this.repository) : super(InitialMembershipState()) {
     on<AddUserToMembershipToPayment>(_addUserToMembershipToPayment);
@@ -15,6 +17,49 @@ class MembershipsBloc extends Bloc<MembershipsEvent, MembershipsState> {
     on<ResetMemberships>(_resetMemberships);
     on<PayMemberships>(_payMemberships);
     on<FillInitialMemberships>(_fillInitialMemberships);
+    on<PayMemberships>(_payMemberships);
+  }
+
+  Future<void> _payMemberships(
+    PayMemberships event,
+    Emitter<MembershipsState> emit,
+  ) async {
+    emit(state.copyWith(loading: true));
+    final response = await repository.payMemberships(
+      memberships: event.membershipCart,
+      selectedMethod: event.selectedMethod,
+      cardID: event.cardID,
+      cvv: event.cvv,
+    );
+
+    if (response["status"] ==
+        MembershipsPaymentResponses.regularCroemResponse) {
+      emit(
+        MembershipSuccessState(
+          membershipCart: state.membershipCart,
+          membershipTotalPrice: state.membershipTotalPrice,
+          loading: false,
+          selectedMethod: state.selectedMethod,
+          cardID: state.cardID,
+          cvv: state.cvv,
+          transactionStatus: response["transactionStatus"],
+        ),
+      );
+    } else if (response["status"] == MembershipsPaymentResponses.openYappi) {
+    //TODO: Handle openyappi response
+      emit(state.copyWith(loading: false));
+    } else {
+      emit(
+        MembershipErrorState(
+          membershipCart: state.membershipCart,
+          membershipTotalPrice: state.membershipTotalPrice,
+          loading: false,
+          selectedMethod: state.selectedMethod,
+          cardID: state.cardID,
+          cvv: state.cvv,
+        ),
+      );
+    }
   }
 
   void _isLoadingMemberships(
@@ -103,15 +148,6 @@ class MembershipsBloc extends Bloc<MembershipsEvent, MembershipsState> {
     );
   }
 
-  Future<void> _payMemberships(
-    PayMemberships event,
-    Emitter<MembershipsState> emit,
-  ) async {
-    final Map<int, int>? membershipCart = event.membershipCart;
-    final double? membershipTotalPrice = event.membershipTotalPrice;
-    final bool? loading = event.loading;
-    emit(state);
-  }
 
   void _resetMemberships(
     ResetMemberships event,

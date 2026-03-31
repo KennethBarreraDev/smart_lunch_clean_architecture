@@ -1,18 +1,18 @@
 import 'package:smart_lunch/core/utils/allowed_topup_methods.dart';
 
 class PaymentMethodUtils {
-  static String getMethodName(AllowedTopupMethods method) {
+  static String getMethodName(AllowedPaymentMethods method) {
     switch (method) {
-      case AllowedTopupMethods.openpay:
+      case AllowedPaymentMethods.openpay:
         return "Openpay";
 
-      case AllowedTopupMethods.mercadoPago:
+      case AllowedPaymentMethods.mercadoPago:
         return "Mercado Pago";
 
-      case AllowedTopupMethods.croem:
+      case AllowedPaymentMethods.croem:
         return "CROEM";
 
-      case AllowedTopupMethods.yappi:
+      case AllowedPaymentMethods.yappi:
         return "Yappi";
     }
   }

@@ -11,6 +11,7 @@ import 'package:smart_lunch/blocs/history/history_bloc.dart';
 import 'package:smart_lunch/blocs/home_bloc/home_bloc.dart';
 import 'package:smart_lunch/blocs/language/language_bloc.dart';
 import 'package:smart_lunch/blocs/language/language_event.dart';
+import 'package:smart_lunch/blocs/memberships/memberships_bloc.dart';
 import 'package:smart_lunch/blocs/openpay/openpay_bloc.dart';
 import 'package:smart_lunch/blocs/products/products_bloc.dart';
 import 'package:smart_lunch/blocs/sales/sales_bloc.dart';
@@ -27,6 +28,7 @@ import 'package:smart_lunch/data/repositories/cafeteria/cafeteria_repository.dar
 import 'package:smart_lunch/data/repositories/croem/croem_repository.dart';
 import 'package:smart_lunch/data/repositories/family/family_repository.dart';
 import 'package:smart_lunch/data/repositories/language/language_repository.dart';
+import 'package:smart_lunch/data/repositories/memberships/memberships_repository.dart';
 import 'package:smart_lunch/data/repositories/openpay/openpay_repository.dart';
 import 'package:smart_lunch/data/repositories/product/product_repository.dart';
 import 'package:smart_lunch/data/repositories/sales/sales_repository.dart';
@@ -101,6 +103,11 @@ void main() async {
           create: (context) =>
               TopupRepository(context.read<ApiClientRepository>()),
         ),
+
+        RepositoryProvider<MembershipsRepository>(
+          create: (context) =>
+              MembershipsRepository(context.read<ApiClientRepository>()),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -166,6 +173,11 @@ void main() async {
 
           BlocProvider(
             create: (context) => TopupBloc(context.read<TopupRepository>()),
+          ),
+
+          BlocProvider(
+            create: (context) =>
+                MembershipsBloc(context.read<MembershipsRepository>()),
           ),
 
           BlocProvider(create: (context) => HomeBloc()),

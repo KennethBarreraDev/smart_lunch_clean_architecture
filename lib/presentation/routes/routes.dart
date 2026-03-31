@@ -15,7 +15,7 @@ class AppRoutes {
   static String panamaCardsSelector = "/panama-cards-selector";
   static String topupStatus = "/topup-status";
   static String membershipsDebtors = "/memberships-debtors";
-
+  static String membershipStatus = "membership-status";
 
 
   static getCleanRouteName(String route) {

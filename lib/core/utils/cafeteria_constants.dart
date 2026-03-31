@@ -12,7 +12,7 @@ class CafeteriaConstants {
   static String defaultCurrency = "MXN";
   static String defaultCardBrand = "visa";
   static double croemFee = 3.5;
-  static double yappiFee = 2;
+  static double yappyFee = 2;
   static double panamaMembershipPrice = 1.20;
 
   static TopupSettings getTopupSetting(

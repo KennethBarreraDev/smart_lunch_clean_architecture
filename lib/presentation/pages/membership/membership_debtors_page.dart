@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sizer/sizer.dart';
 import 'package:smart_lunch/blocs/memberships/memberships_bloc.dart';
 import 'package:smart_lunch/blocs/memberships/memberships_event.dart';
@@ -13,6 +14,7 @@ import 'package:smart_lunch/core/utils/app_colors.dart';
 import 'package:smart_lunch/core/utils/app_images.dart';
 import 'package:smart_lunch/l10n/app_localizations.dart';
 import 'package:smart_lunch/presentation/pages/membership/widgets/student_membership_component.dart';
+import 'package:smart_lunch/presentation/routes/routes.dart';
 
 class MembershipDebtorsPage extends StatelessWidget {
   const MembershipDebtorsPage({super.key});
@@ -196,7 +198,12 @@ class MembershipDebtorsPage extends StatelessWidget {
                                     if ((membershipsState.membershipCart ?? {})
                                         .isNotEmpty) {
                                       //TODO: Load CROEM Cards
-                                      
+                                      context.pushNamed(
+                                        AppRoutes.getCleanRouteName(
+                                          AppRoutes.panamaCardsSelector,
+                                        ),
+                                        extra: false,
+                                      );
                                     }
                                   },
                                 ),

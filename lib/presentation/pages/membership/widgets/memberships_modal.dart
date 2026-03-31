@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_lunch/blocs/memberships/memberships_bloc.dart';
 import 'package:smart_lunch/blocs/memberships/memberships_event.dart';
@@ -14,6 +15,7 @@ import 'package:smart_lunch/core/utils/app_colors.dart';
 import 'package:smart_lunch/core/utils/app_images.dart';
 import 'package:smart_lunch/data/models/cafeteria_user_model.dart';
 import 'package:smart_lunch/l10n/app_localizations.dart';
+import 'package:smart_lunch/presentation/routes/routes.dart';
 
 class PendingMembershipModal extends StatelessWidget {
   PendingMembershipModal({super.key, required this.membershipDebtors});
@@ -124,9 +126,12 @@ class PendingMembershipModal extends StatelessWidget {
                             FillInitialMemberships(membershipDebtors),
                           );
 
-                          // Navigator.of(
-                          //   context,
-                          // ).pushNamed(router.panamaMembershipDeptors);
+                          context.pushNamed(
+                            AppRoutes.getCleanRouteName(
+                              AppRoutes.membershipsDebtors,
+                            ),
+                          
+                          );
                         },
                         text: AppLocalizations.of(context)!.pay_now,
                         textFontSize: 20,

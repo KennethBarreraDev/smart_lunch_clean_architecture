@@ -14,7 +14,7 @@ class TopupRepository {
   Future<Map<String, dynamic>> topupBalance({
     required String userBuyer,
     required String amount,
-    required AllowedTopupMethods selectedMethod,
+    required AllowedPaymentMethods selectedMethod,
     String? cardId,
     String? deviceSessionID,
     String? cvv,
@@ -61,7 +61,7 @@ class TopupRepository {
   }
 
   Map<String, dynamic> _buildRequestBody({
-    required AllowedTopupMethods method,
+    required AllowedPaymentMethods method,
     required String userBuyer,
     required String amount,
     String? cardId,
@@ -70,7 +70,7 @@ class TopupRepository {
     String? tokenizedCard,
   }) {
     switch (method) {
-      case AllowedTopupMethods.openpay:
+      case AllowedPaymentMethods.openpay:
         return {
           "amount": amount,
           "user_recharger": userBuyer,
@@ -79,7 +79,7 @@ class TopupRepository {
           "device_session_id": deviceSessionID,
         };
 
-      case AllowedTopupMethods.mercadoPago:
+      case AllowedPaymentMethods.mercadoPago:
         return {
           "recharge_date": DateTime.now().toUtc().toIso8601String(),
           "amount": amount,
@@ -87,8 +87,8 @@ class TopupRepository {
           "payment_method": "MERCADO_PAGO",
         };
 
-      case AllowedTopupMethods.croem:
-      case AllowedTopupMethods.yappi:
+      case AllowedPaymentMethods.croem:
+      case AllowedPaymentMethods.yappi:
         return {
           "amount": amount,
           "cvv": cvv,
@@ -101,21 +101,21 @@ class TopupRepository {
   }
 
   Map<String, dynamic> _handleResponse(
-    AllowedTopupMethods method,
+    AllowedPaymentMethods method,
     Map<String, dynamic> response,
   ) {
     switch (method) {
-      case AllowedTopupMethods.openpay:
+      case AllowedPaymentMethods.openpay:
         return _handleOpenpay(response);
 
-      case AllowedTopupMethods.mercadoPago:
+      case AllowedPaymentMethods.mercadoPago:
         return {
           "status": TopupResponses.openMercadoPago,
           "mercado_pago_url":
               response['mercadopago_preference']?["preference_url"] ?? "",
         };
 
-      case AllowedTopupMethods.croem:
+      case AllowedPaymentMethods.croem:
         return {
           "status": TopupResponses.regularCroemResponse,
           "rechargeFolio": response["folio"] ?? "",
@@ -125,7 +125,7 @@ class TopupRepository {
               response["status"]?.toString().toUpperCase() ?? "",
         };
 
-      case AllowedTopupMethods.yappi:
+      case AllowedPaymentMethods.yappi:
         return {
           "status": TopupResponses.openYappi,
           "yappi_url": response["url"] ?? "",

@@ -1,4 +1,4 @@
-enum AllowedTopupMethods {
+enum AllowedPaymentMethods {
   openpay, 
   mercadoPago,
   croem,

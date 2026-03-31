@@ -37,6 +37,9 @@ class ApiUrls {
       "$baseUrl/smartlunch/open-pay/credentials/";
   static String openPayTutorUrl = "$baseUrl/smartlunch/open-pay/customer/";
   static String openPayCardsUrl = "$baseUrl/smartlunch/open-pay/cards/";
+
+  //Memberships
+  static String membershipsUrl = "$baseUrl/smartlunch/sale/membership/";
   
 
   //Croem

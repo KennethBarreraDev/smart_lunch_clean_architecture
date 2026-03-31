@@ -56,7 +56,7 @@ class TopupSuccessState extends TopupState {
   final String? topUpId;
   final String transactionFolio;
   final String transactionStatus;
-  final AllowedTopupMethods selectedMethod;
+  final AllowedPaymentMethods selectedMethod;
 
   TopupSuccessState({
     required this.topUpId,
