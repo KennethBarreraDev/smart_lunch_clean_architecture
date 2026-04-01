@@ -91,7 +91,6 @@ class MultipleSaleBloc extends Bloc<MultipleSaleEvent, MultipleSaleState> {
       emit(
         state.copyWith(
           selectedSaleDate: selectedSaleDate,
-          multisaleProducts: updatedList,
           totalPrice: total,
           canBuy: updatedList.any((e) => e.cartProducts.isNotEmpty),
         ),
@@ -123,20 +122,12 @@ class MultipleSaleBloc extends Bloc<MultipleSaleEvent, MultipleSaleState> {
       if (!selectedSaleDate.selected) {
         selectedSaleDate = selectedSaleDate.copyWith(selected: true);
       }
-
-      final updatedList = state.multisaleProducts.map((e) {
-        if (e.saleDate == selectedSaleDate!.saleDate) {
-          return selectedSaleDate;
-        }
-        return e;
-      }).toList();
-
+      
       final total = state.totalPrice + (product.price ?? 0.0);
 
       emit(
         state.copyWith(
           selectedSaleDate: selectedSaleDate,
-          multisaleProducts: updatedList,
           totalPrice: total,
           canBuy: true,
         ),

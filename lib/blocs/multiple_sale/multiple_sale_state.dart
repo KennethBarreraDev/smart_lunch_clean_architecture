@@ -129,6 +129,6 @@ class InitialMultipleSaleState extends MultipleSaleState {
         applyDisscount: false,
         disscount: 0.0,
         loading: false,
-        canBuy: true,
+        canBuy: false,
       );
 }

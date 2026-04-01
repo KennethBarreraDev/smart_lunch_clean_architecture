@@ -33,7 +33,8 @@ class MultisaleProducts extends StatelessWidget {
           children: [
             Container(
               padding: const EdgeInsets.only(bottom: 80),
-              height: MediaQuery.of(context).size.height * 2,
+              constraints: BoxConstraints(minHeight: 100.h),
+              width: 100.w,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topRight,
@@ -173,7 +174,7 @@ class MultisaleProducts extends StatelessWidget {
                                                   ),
                                                 ),
                                                 Text(
-                                                  "\$${(multipleSaleState.selectedSaleDate?.totalPrice ?? 0.0).toStringAsFixed(2)}",
+                                                  "\$${((multipleSaleState.selectedSaleDate?.totalPrice ?? 0.0)).toStringAsFixed(2)}",
                                                   style: TextStyle(
                                                     color: AppColors.darkBlue,
                                                     fontSize: 20,
