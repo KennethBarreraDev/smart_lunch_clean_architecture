@@ -17,8 +17,11 @@ class AppRoutes {
   static String topupStatus = "/topup-status";
   static String membershipsDebtors = "/memberships-debtors";
   static String membershipStatus = "/membership-status";
+  static String multisalePage = "/multisale-page";
   static String multisaleCalendar = "/multisale-calendar";
   static String multisaleProducts = "/multisale-products";
+  static String multipleSaleSuccessPage = "/multiple-sale-success-page";
+
 
   static getCleanRouteName(String route) {
     return route.replaceAll("/", "");

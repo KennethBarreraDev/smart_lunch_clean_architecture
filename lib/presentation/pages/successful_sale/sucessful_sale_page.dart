@@ -9,6 +9,7 @@ import 'package:smart_lunch/blocs/sales/sales_bloc.dart';
 import 'package:smart_lunch/blocs/sales/sales_state.dart';
 import 'package:smart_lunch/core/base_widgets/appbar/custom_appbar.dart';
 import 'package:smart_lunch/core/base_widgets/buttons/rounded_button.dart';
+import 'package:smart_lunch/core/base_widgets/layouts/success_transaction_layout.dart';
 import 'package:smart_lunch/core/base_widgets/scaffold/transparent_scaffold.dart';
 import 'package:smart_lunch/core/utils/allowed_users.dart';
 import 'package:smart_lunch/core/utils/app_colors.dart';
@@ -19,15 +20,32 @@ import 'package:smart_lunch/core/utils/sale_utils.dart';
 import 'package:smart_lunch/l10n/app_localizations.dart';
 import 'package:smart_lunch/presentation/routes/routes.dart';
 import 'package:vector_graphics/vector_graphics.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:sizer/sizer.dart';
+
+import 'package:smart_lunch/blocs/cafeteria/cafeteria_bloc.dart';
+import 'package:smart_lunch/blocs/cafeteria/cafeteria_state.dart';
+import 'package:smart_lunch/blocs/sales/sales_bloc.dart';
+import 'package:smart_lunch/blocs/sales/sales_state.dart';
+
+import 'package:smart_lunch/core/base_widgets/buttons/rounded_button.dart';
+import 'package:smart_lunch/core/utils/allowed_users.dart';
+import 'package:smart_lunch/core/utils/app_colors.dart';
+import 'package:smart_lunch/core/utils/app_images.dart';
+import 'package:smart_lunch/core/utils/cafeteria_constants.dart';
+import 'package:smart_lunch/core/utils/date_utils.dart';
+import 'package:smart_lunch/core/utils/sale_utils.dart';
+
+import 'package:smart_lunch/l10n/app_localizations.dart';
+import 'package:smart_lunch/presentation/routes/routes.dart';
+import 'package:vector_graphics/vector_graphics.dart';
+
 
 class SuccessfulSalePage extends StatelessWidget {
   const SuccessfulSalePage({super.key});
-
-  static const _titleStyle = TextStyle(
-    fontSize: 30,
-    fontWeight: FontWeight.w700,
-    color: Colors.white,
-  );
 
   static final _labelStyle = TextStyle(
     color: AppColors.darkBlue,
@@ -44,36 +62,12 @@ class SuccessfulSalePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TransparentScaffold(
-      selectedOption: "Inicio",
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                _header(),
-                _successImage(),
-                _titles(context),
-                _content(),
-              ],
-            ),
-          ],
-        ),
-      ),
+    return SuccessLayout(
+      image: _successImage(),
+      titles: _titles(context),
+      content: _content(),
     );
   }
-
-  Widget _header() {
-    return CustomAppBar(
-      height: 38.h,
-      showPageTitle: false,
-      showDrawer: false,
-      image: AppImages.appBarLongImg,
-      titleTopPadding: 0.3,
-      secondaryColor: true,
-    );
-  }
-
   Widget _successImage() {
     return Container(
       margin: EdgeInsets.only(top: 15.h),
@@ -91,36 +85,12 @@ class SuccessfulSalePage extends StatelessWidget {
   }
 
   Widget _titles(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: 5.h),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                AppLocalizations.of(context)!.order_completed,
-                style: _titleStyle,
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Text(
-            AppLocalizations.of(context)!.purchase_successfully_mesage,
-            style: _titleStyle.copyWith(
-              fontSize: 15,
-              color: Colors.white.withValues(alpha: 0.75),
-              fontWeight: FontWeight.normal,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
+    return SuccessTitles(
+      title: AppLocalizations.of(context)!.order_completed,
+      subtitle:
+          AppLocalizations.of(context)!.purchase_successfully_mesage,
     );
   }
-
   Widget _content() {
     return BlocBuilder<SalesBloc, SaleState>(
       builder: (context, saleState) {
@@ -128,29 +98,32 @@ class SuccessfulSalePage extends StatelessWidget {
           return const SizedBox.shrink();
         }
 
-        final cafeteriaState = context.select(
-          (CafeteriaBloc bloc) => bloc.state,
-        );
+        final cafeteriaState =
+            context.select((CafeteriaBloc bloc) => bloc.state);
 
         if (cafeteriaState is! CafeteriaSuccess) {
           return const SizedBox.shrink();
         }
 
         final user = saleState.selectedUser;
+
         final currency =
             cafeteriaState.selected.school?.currency ??
-            CafeteriaConstants.defaultCurrency;
+                CafeteriaConstants.defaultCurrency;
 
         final isSelfSufficient =
             (user?.selfSufficient ?? false) ||
-            (user?.user?.userType ?? "").toUpperCase() == AllowedUsers.TC.name;
+            (user?.user?.userType ?? "").toUpperCase() ==
+                AllowedUsers.TC.name;
 
         return Container(
           margin: EdgeInsets.only(top: 40.h),
           width: 100.w,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             children: [
-              if (isSelfSufficient) _priceRow(saleState.finalPrice, currency),
+              if (isSelfSufficient)
+                _priceRow(saleState.finalPrice, currency),
 
               _infoRow(
                 AppLocalizations.of(context)!.folio_message,
@@ -204,6 +177,7 @@ class SuccessfulSalePage extends StatelessWidget {
     );
   }
 
+
   Widget _priceRow(String? price, String currency) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -238,6 +212,8 @@ class SuccessfulSalePage extends StatelessWidget {
   }
 
   Widget _divider() {
-    return Divider(color: AppColors.darkBlue.withValues(alpha: 0.15));
+    return Divider(
+      color: AppColors.darkBlue.withValues(alpha: 0.15),
+    );
   }
 }

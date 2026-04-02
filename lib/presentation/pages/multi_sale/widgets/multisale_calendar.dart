@@ -34,7 +34,8 @@ class MultisaleCalendar extends StatelessWidget {
       body: Stack(
         children: [
           Container(
-            height: MediaQuery.of(context).size.height * 2,
+            constraints: BoxConstraints(minHeight: 100.h),
+            width: 100.w,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topRight,
@@ -74,7 +75,11 @@ class MultisaleCalendar extends StatelessWidget {
 
                               UserBalanceCard(
                                 user: multisaleState.selectedUser,
-                                familyBalance: familyState.balance.toString(),
+                                familyBalance:
+                                    (familyState.balance -
+                                            multisaleState.totalPrice -
+                                            multisaleState.disscount)
+                                        .toString(),
                               ),
                               const SizedBox(height: 10),
                               Divider(

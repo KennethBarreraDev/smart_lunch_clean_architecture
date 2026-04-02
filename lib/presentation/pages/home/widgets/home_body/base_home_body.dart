@@ -78,7 +78,11 @@ class BaseHomeBody extends StatelessWidget {
       );
     }
 
-    void onMultisaleTap() {}
+    void onMultisaleTap() {
+      context.pushNamed(
+        AppRoutes.getCleanRouteName(AppRoutes.multisalePage),
+      );
+    }
 
     return (cafeteriaUser?.selfSufficient ??
             false || sessionData?.userType == UserRole.teacher)
