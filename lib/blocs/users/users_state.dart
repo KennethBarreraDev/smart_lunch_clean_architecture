@@ -15,6 +15,7 @@ class UsersLoaded extends UsersState {
   final bool hasPendingUserMemberships;
   final List<CafeteriaUser> pendingUserMemberships;
   final bool showMembershipModal;
+  final List<CafeteriaUser>? familyChildren;
 
   UsersLoaded({
     required this.mainUser,
@@ -24,6 +25,7 @@ class UsersLoaded extends UsersState {
     required this.hasPendingUserMemberships,
     required this.pendingUserMemberships,
     required this.showMembershipModal,
+    this.familyChildren,
   });
 
   UsersLoaded copyWith({
@@ -34,6 +36,7 @@ class UsersLoaded extends UsersState {
     bool? hasPendingUserMemberships,
     List<CafeteriaUser>? pendingUserMemberships,
     bool? showMembershipModal,
+    List<CafeteriaUser>? familyChildren,
   }) {
     return UsersLoaded(
       mainUser: mainUser ?? this.mainUser,
@@ -44,8 +47,8 @@ class UsersLoaded extends UsersState {
           hasPendingUserMemberships ?? this.hasPendingUserMemberships,
       pendingUserMemberships:
           pendingUserMemberships ?? this.pendingUserMemberships,
-      showMembershipModal:
-          showMembershipModal ?? this.showMembershipModal,
+      showMembershipModal: showMembershipModal ?? this.showMembershipModal,
+      familyChildren: familyChildren ?? this.familyChildren,
     );
   }
 }
@@ -54,4 +57,23 @@ class UsersError extends UsersState {
   final String message;
 
   UsersError(this.message);
+}
+
+class UsersEmpty extends UsersState {
+  final String message;
+
+  UsersEmpty({this.message = 'No hay usuarios disponibles'});
+}
+
+class FamilyChildrenLoading extends UsersState {
+  final CafeteriaUser? mainUser;
+
+  FamilyChildrenLoading({this.mainUser});
+}
+
+class FamilyChildrenLoaded extends UsersState {
+  final List<CafeteriaUser> familyChildren;
+  final CafeteriaUser? mainUser;
+
+  FamilyChildrenLoaded({required this.familyChildren, this.mainUser});
 }

@@ -77,7 +77,6 @@ static String membershipDebt = "assets/img/membership_payment.png";
 static String mercadoPagoLogo = "assets/img/mercado_pago.png";
 
 
-
 static String getCardBrandImage(String brand) {
   switch (brand) {
     case "mastercard":

@@ -13,6 +13,7 @@ class UsersBloc extends Bloc<UserEvent, UsersState> {
   UsersBloc(this.repository) : super(UsersInitial()) {
     on<LoadUsersEvent>(_loadUsers);
     on<ToggleMembershipDebtorsModalVisibillity>(_toggleModalVisibillity);
+    on<LoadFamilyChildrenEvent>(_loadFamilyChildren);
   }
 
   void _toggleModalVisibillity(
@@ -33,7 +34,7 @@ class UsersBloc extends Bloc<UserEvent, UsersState> {
     try {
       final results = await Future.wait([
         repository.loadCurrentUser(),
-        repository.loadUserChildren(),
+        repository.loadFamilyChildren(),
         // repository.loadDebtorsChildren(),
       ]);
 
@@ -77,6 +78,31 @@ class UsersBloc extends Bloc<UserEvent, UsersState> {
           hasPendingUserMemberships: hasPendingUserMemberships,
           pendingUserMemberships: pendingUserMembershipUsers,
           showMembershipModal: hasPendingUserMemberships,
+          familyChildren: null,
+        ),
+      );
+    } catch (e) {
+      emit(UsersError(e.toString()));
+    }
+  }
+
+  Future<void> _loadFamilyChildren(
+    LoadFamilyChildrenEvent event,
+    Emitter<UsersState> emit,
+  ) async {
+    final currentMainUser = state is UsersLoaded
+        ? (state as UsersLoaded).mainUser
+        : null;
+
+    emit(FamilyChildrenLoading(mainUser: currentMainUser));
+
+    try {
+      final List<CafeteriaUser> familyChildren = await repository
+          .loadFamilyChildren();
+      emit(
+        FamilyChildrenLoaded(
+          familyChildren: familyChildren,
+          mainUser: currentMainUser,
         ),
       );
     } catch (e) {

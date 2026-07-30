@@ -103,4 +103,65 @@ class UserModel {
 
   factory UserModel.fromJson(Map<String, dynamic> source) => UserModel.fromMap(source);
 
+  /// Convierte el string de alergias
+  /// "ids: 1, 2, 3 | Personalized: texto") a un map con la lista de ids
+  /// seleccionados y el texto personalizado.
+  static Map<String, dynamic> parseAllergyString(String? data) {
+    final result = <String, dynamic>{
+      'ids': <int>[],
+      'personalized': '',
+    };
+
+    if (data == null || data.isEmpty) return result;
+    if (!data.contains('ids:') && !data.contains('Personalized:')) {
+      return result;
+    }
+
+    final parts = data.split(' | ');
+
+    for (var part in parts) {
+      if (part.startsWith('ids: ')) {
+        final idsPart = part.replaceFirst('ids: ', '');
+        if (idsPart.isNotEmpty && idsPart != 'null') {
+          try {
+            result['ids'] = idsPart
+                .split(',')
+                .map((e) => int.parse(e.trim()))
+                .where((id) => id > 0)
+                .toList();
+          } catch (_) {
+            result['ids'] = <int>[];
+          }
+        }
+      } else if (part.startsWith('Personalized: ')) {
+        final personalizedPart = part.replaceFirst('Personalized: ', '');
+        if (personalizedPart.isNotEmpty &&
+            personalizedPart != 'null' &&
+            personalizedPart.trim().isNotEmpty) {
+          result['personalized'] = personalizedPart;
+        }
+      }
+    }
+
+    return result;
+  }
+
+  /// Convierte un map con 'ids' (lista de int) y 'personalized' (String)
+  /// al formato "ids: 1, 2, 3 | Personalized: texto").
+  static String buildAllergyString(Map<String, dynamic> data) {
+    final ids = (data['ids'] as List?)?.cast<int>() ?? <int>[];
+    final personalized = (data['personalized'] as String? ?? '').trim();
+
+    if (ids.isEmpty && personalized.isEmpty) return '';
+
+    final result = StringBuffer();
+    if (ids.isNotEmpty) {
+      result.write('ids: ${ids.join(', ')}');
+    }
+    if (personalized.isNotEmpty) {
+      if (result.isNotEmpty) result.write(' | ');
+      result.write('Personalized: $personalized');
+    }
+    return result.toString();
+  }
 }

@@ -1,8 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-import 'package:smart_lunch/data/models/product_category_model.dart';
-
 class ProductModel {
   final int? id;
   final String? imageUrl;

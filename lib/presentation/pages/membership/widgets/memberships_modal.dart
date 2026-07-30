@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 import 'package:smart_lunch/blocs/memberships/memberships_bloc.dart';
 import 'package:smart_lunch/blocs/memberships/memberships_event.dart';
 import 'package:smart_lunch/blocs/session/session_bloc.dart';

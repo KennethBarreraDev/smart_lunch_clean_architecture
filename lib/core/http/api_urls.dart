@@ -15,7 +15,10 @@ class ApiUrls {
   //App version
   static String appVersionUrl = "$baseUrl/core/app_version/";
 
-  //Users
+  // Users
+  static String listUsers = "$baseUrl/core/user/";
+
+  //Cafeteria Users
   static String cafeteriaUserUrl = "$baseUrl/smartlunch/cafeteria-user/";
 
   //Family
@@ -49,6 +52,18 @@ class ApiUrls {
   static String rechargeUrl = "$baseUrl/smartlunch/recharge/";
 
   //Multisales
-  String multisaleProducts = "$baseUrl/smartlunch/sale/multi_presale/";
+  static String multisaleProducts = "$baseUrl/smartlunch/sale/multi_presale/";
+
+  //Ingredients
+  static String ingredientsUrl= "$baseUrl/smartlunch/ingredient/";
+
+  // Alergies
+  static String alergiesUrl= "$baseUrl/smartlunch/allergy/";
+
+  // Product restriction
+  static String productRestrictionUrl= "$baseUrl/smartlunch/product-restriction/";
+
+  // Classification
+  static String classificationUrl= "$baseUrl/smartlunch/classification/";
 
 }

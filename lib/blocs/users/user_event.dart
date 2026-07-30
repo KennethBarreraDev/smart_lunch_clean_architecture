@@ -12,3 +12,7 @@ class ToggleMembershipDebtorsModalVisibillity extends UserEvent {
 
   ToggleMembershipDebtorsModalVisibillity({required this.show});
 }
+
+class LoadFamilyChildrenEvent extends UserEvent {
+  LoadFamilyChildrenEvent();
+}

@@ -161,15 +161,22 @@ class SessionRepository {
       name: logName,
     );
     //TODO: Ask for groups in backend
-    bool isTutor = true || decodedAccessToken["groups"].contains("Tutor");
+    /*bool isTutor = decodedAccessToken["groups"].contains("Tutor");
     bool isStudent = decodedAccessToken["groups"].contains("Student");
-    bool isTeacher = decodedAccessToken["groups"].contains("Teacher");
+    bool isTeacher = decodedAccessToken["groups"].contains("Teacher");*/
+
+    String userType = decodedAccessToken["user_type"] ?? "";
+    List<String> groups = decodedAccessToken["groups"] ?? [];
+    
+    bool isTutor = groups.contains("Tutor") || userType == "TU";
+    bool isStudent = groups.contains("Student") || userType == "ST";
+    bool isTeacher = groups.contains("Teacher") || userType == "TE";
 
     developer.log("Is tutor: $isTutor", name: logName);
     developer.log("Is student: $isStudent", name: logName);
     developer.log("Is teacher: $isTeacher", name: logName);
 
-    UserRole userType = UserRole.none;
+    // UserRole userType = UserRole.none;
 
     if (isTeacher) {
       await saveUserInfoToCache(
@@ -190,7 +197,7 @@ class SessionRepository {
         logName: logName,
       );
     } else if (isStudent) {
-      userType = UserRole.student;
+      // userType = UserRole.student;
       await saveUserInfoToCache(
         accessToken,
         refreshToken,

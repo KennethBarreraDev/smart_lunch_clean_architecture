@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:developer' as developer;
 import 'package:smart_lunch/core/http/api_urls.dart';
-import 'package:smart_lunch/data/models/cafeteria_model.dart';
 import 'package:smart_lunch/data/repositories/api/api_client_repository.dart';
 
 class FamlilyRepository {

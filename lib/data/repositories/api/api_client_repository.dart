@@ -93,4 +93,21 @@ class ApiClientRepository {
       ),
     );
   }
+
+  Future<http.Response> patch(
+    String url,
+    Map<String, dynamic> body, {
+    String logName = "LOG",
+    Map<String, String>? headers,
+  }) {
+    developer.log("PATCH $url", name: logName);
+    return http.patch(
+      Uri.parse(url),
+      headers: _resolveHeaders(
+        base: _baseHeaders(json: true),
+        custom: headers,
+      ),
+      body: jsonEncode(body),
+    );
+  }
 }

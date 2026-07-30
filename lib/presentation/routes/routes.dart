@@ -22,6 +22,12 @@ class AppRoutes {
   static String multisaleProducts = "/multisale-products";
   static String multipleSaleSuccessPage = "/multiple-sale-success-page";
 
+  static String children = "/children";
+  static String getChild = "/child";
+
+  static String productRestriction = "/product-restriction";
+  static String productLimited = "/product-limited";
+
 
   static getCleanRouteName(String route) {
     return route.replaceAll("/", "");

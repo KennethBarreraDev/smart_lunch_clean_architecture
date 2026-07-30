@@ -1,37 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_lunch/app.dart';
+import 'package:smart_lunch/blocs/alergy/alergy_bloc.dart';
 import 'package:smart_lunch/blocs/app_version/app_version_bloc.dart';
 import 'package:smart_lunch/blocs/app_version/app_version_event.dart';
 import 'package:smart_lunch/blocs/cafeteria/cafeteria_bloc.dart';
 import 'package:smart_lunch/blocs/cafeteria_hours/cafeteria_hours_bloc.dart';
+import 'package:smart_lunch/blocs/classification/classification_bloc.dart';
 import 'package:smart_lunch/blocs/croem/croem_bloc.dart';
 import 'package:smart_lunch/blocs/family/family_bloc.dart';
 import 'package:smart_lunch/blocs/history/history_bloc.dart';
 import 'package:smart_lunch/blocs/home_bloc/home_bloc.dart';
+import 'package:smart_lunch/blocs/ingredients/ingredient_bloc.dart';
 import 'package:smart_lunch/blocs/language/language_bloc.dart';
 import 'package:smart_lunch/blocs/language/language_event.dart';
 import 'package:smart_lunch/blocs/memberships/memberships_bloc.dart';
 import 'package:smart_lunch/blocs/multiple_sale/multiple_sale_bloc.dart';
+import 'package:smart_lunch/blocs/observer/bloc_observer.dart';
 import 'package:smart_lunch/blocs/openpay/openpay_bloc.dart';
+import 'package:smart_lunch/blocs/product_restriction/product_restriction_bloc.dart';
 import 'package:smart_lunch/blocs/products/products_bloc.dart';
 import 'package:smart_lunch/blocs/sales/sales_bloc.dart';
 import 'package:smart_lunch/blocs/sales_history/sales_history_bloc.dart';
+import 'package:smart_lunch/blocs/selected_user/selected_user_bloc.dart';
 import 'package:smart_lunch/blocs/session/session_bloc.dart';
 import 'package:smart_lunch/blocs/session/session_event.dart';
 import 'package:smart_lunch/blocs/topup/topup_bloc.dart';
 import 'package:smart_lunch/blocs/users/users_bloc.dart';
 import 'package:smart_lunch/data/providers/secure_storage_provider.dart';
 import 'package:smart_lunch/data/repositories/History/History_repository.dart';
+import 'package:smart_lunch/data/repositories/alergy/alergy_repository.dart';
 import 'package:smart_lunch/data/repositories/api/api_client_repository.dart';
 import 'package:smart_lunch/data/repositories/app_version/app_version_repository.dart';
 import 'package:smart_lunch/data/repositories/cafeteria/cafeteria_repository.dart';
+import 'package:smart_lunch/data/repositories/classification/classification_respository.dart';
 import 'package:smart_lunch/data/repositories/croem/croem_repository.dart';
 import 'package:smart_lunch/data/repositories/family/family_repository.dart';
+import 'package:smart_lunch/data/repositories/ingredient/ingredient_repository.dart';
 import 'package:smart_lunch/data/repositories/language/language_repository.dart';
 import 'package:smart_lunch/data/repositories/memberships/memberships_repository.dart';
 import 'package:smart_lunch/data/repositories/openpay/openpay_repository.dart';
 import 'package:smart_lunch/data/repositories/product/product_repository.dart';
+import 'package:smart_lunch/data/repositories/product_restriction/product_restriction_respository.dart';
 import 'package:smart_lunch/data/repositories/sales/sales_repository.dart';
 import 'package:smart_lunch/data/repositories/session/session_repository.dart';
 import 'package:smart_lunch/data/repositories/topup/topup_repository.dart';
@@ -40,6 +50,7 @@ import 'package:smart_lunch/data/repositories/users/users_repository.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final storageProvider = StorageProvider();
+  Bloc.observer = MyBlocObserver();
 
   runApp(
     MultiRepositoryProvider(
@@ -108,6 +119,22 @@ void main() async {
         RepositoryProvider<MembershipsRepository>(
           create: (context) =>
               MembershipsRepository(context.read<ApiClientRepository>()),
+        ),
+        RepositoryProvider(
+          create: (context) =>
+              IngredientRepository(context.read<ApiClientRepository>()),
+        ),
+        RepositoryProvider(
+          create: (context) =>
+              AlergyRepository(context.read<ApiClientRepository>()),
+        ),
+        RepositoryProvider(
+          create: (context) =>
+              ClassificationRepository(context.read<ApiClientRepository>()),
+        ),
+        RepositoryProvider(
+          create: (context) =>
+              ProductRestrictionRepository(context.read<ApiClientRepository>()),
         ),
       ],
       child: MultiBlocProvider(
@@ -187,6 +214,34 @@ void main() async {
           ),
 
           BlocProvider(create: (context) => HomeBloc()),
+
+          BlocProvider(
+            create: (context) =>
+                SelectedUserBloc(context.read<UserRepository>()),
+          ),
+
+          BlocProvider(
+            create: (context) => IngredientBloc(
+              context.read<IngredientRepository>(),
+              storageProvider,
+            ),
+          ),
+
+          BlocProvider(
+            create: (context) =>
+                AlergyBloc(context.read<AlergyRepository>()),
+          ),
+
+          BlocProvider(
+            create: (context) =>
+                ClassificationBloc(context.read<ClassificationRepository>()),
+          ),
+
+          BlocProvider(
+            create: (context) => ProductRestrictionBloc(
+              context.read<ProductRestrictionRepository>(),
+            ),
+          ),
         ],
         child: const App(),
       ),

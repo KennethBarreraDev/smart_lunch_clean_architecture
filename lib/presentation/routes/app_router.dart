@@ -1,6 +1,10 @@
 import 'package:go_router/go_router.dart';
 import 'package:smart_lunch/core/base_widgets/bank_cards/panama/panama_cards_selector.dart';
 import 'package:smart_lunch/presentation/pages/auth/auth_page.dart';
+import 'package:smart_lunch/presentation/pages/children/children_page.dart';
+import 'package:smart_lunch/presentation/pages/limited_products/limited_products_page.dart';
+import 'package:smart_lunch/presentation/pages/prohibited_products/prohibited_products_page.dart';
+import 'package:smart_lunch/presentation/pages/selected_child/selected_child_page.dart';
 import 'package:smart_lunch/presentation/pages/croem/register_croem_card.dart';
 import 'package:smart_lunch/presentation/pages/home/home_page.dart';
 import 'package:smart_lunch/presentation/pages/legal_information/privacity.dart';
@@ -155,6 +159,30 @@ class AppRouter {
         name: AppRoutes.getCleanRouteName(AppRoutes.multipleSaleSuccessPage),
         path: AppRoutes.multipleSaleSuccessPage,
         builder: (context, state) => MultipleSaleSuccessPage(),
+      ),
+
+      GoRoute(
+        name: AppRoutes.getCleanRouteName(AppRoutes.children),
+        path: AppRoutes.children,
+        builder: (context, state) => ChildrenPage(),
+      ),
+
+      GoRoute(
+        name: AppRoutes.getCleanRouteName(AppRoutes.getChild),
+        path: AppRoutes.getChild,
+        builder: (context, state) => SelectedChildPage(),
+      ),
+
+      GoRoute(
+        name: AppRoutes.getCleanRouteName(AppRoutes.productRestriction),
+        path: AppRoutes.productRestriction,
+        builder: (context, state) => ProhibitedProductsPage(),
+      ),
+
+      GoRoute(
+        name: AppRoutes.getCleanRouteName(AppRoutes.productLimited),
+        path: AppRoutes.productLimited,
+        builder: (context, state) => LimitedProductsPage(),
       ),
     ],
   );

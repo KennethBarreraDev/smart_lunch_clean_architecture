@@ -90,7 +90,7 @@ class HomePage extends StatelessWidget {
                                   showSchoolLogo: true,
                                   image: AppImages.appBarLongImg,
                                   schoolLogoUrl: state.selected.logo ?? "",
-                                  schoolName: "",
+                                  schoolName: state.selected.school?.name ?? "",
                                   cafeteriaName: "${state.selected.name}",
                                 ),
                               ],

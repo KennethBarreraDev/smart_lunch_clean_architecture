@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,6 +36,12 @@ class TransparentScaffold extends StatelessWidget {
     final cafeteriaUser = context.select<UsersBloc, CafeteriaUser?>((bloc) {
       final state = bloc.state;
       if (state is UsersLoaded) {
+        return state.mainUser;
+      }
+      if (state is FamilyChildrenLoading) {
+        return state.mainUser;
+      }
+      if (state is FamilyChildrenLoaded) {
         return state.mainUser;
       }
       return null;
@@ -140,7 +148,8 @@ class TransparentScaffold extends StatelessWidget {
                                 const SizedBox(height: 10),
 
                                 Text(
-                                  "${cafeteriaUser?.user?.firstName} ${cafeteriaUser?.user?.lastName}",
+                                  "${cafeteriaUser?.user?.firstName ?? ''} ${cafeteriaUser?.user?.lastName ?? ''}"
+                                      .trim(),
                                   style: TextStyle(
                                     color: AppColors.white,
                                     fontSize: 24.0,
@@ -194,7 +203,6 @@ class TransparentScaffold extends StatelessWidget {
                                   context.read<CafeteriaBloc>().add(
                                     LoadCafeteria(),
                                   );
-                                 
                                 },
                               ),
 
@@ -203,7 +211,9 @@ class TransparentScaffold extends StatelessWidget {
                                   title: AppLocalizations.of(context)!.children,
                                   icon: Icons.face,
                                   isSelected: selectedOption == "Hijos",
-                                  route: AppRoutes.homeRoute,
+                                  route: AppRoutes.children,
+
+                                  onTap: () {},
                                 ),
 
                               DrawerOption(
