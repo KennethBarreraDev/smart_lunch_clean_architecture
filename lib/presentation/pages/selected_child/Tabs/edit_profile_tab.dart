@@ -50,59 +50,84 @@ class _EditProfileTabState extends State<EditProfileTab> {
 
               const SizedBox(height: 30),
 
-              // TODO: Activar los inputs dejando readonly en false
-              // actualmente en la api no actualiza los datos de usuarios como nombres
-              LabelTextInput(
-                label: AppLocalizations.of(context)!.user_name,
-                initialValue: user.firstName ?? '',
-                readOnly: true,
-                onChanged: (String nuevoValor) {
-                  _nameUserTextEdit = nuevoValor;
-                },
-              ),
-              const SizedBox(height: 20),
-
-              LabelTextInput(
-                label: AppLocalizations.of(context)!.user_lastname,
-                initialValue: user.lastName ?? '',
-                readOnly: true,
-                onChanged: (String nuevoValor) {
-                  _lastNameUserTextEdit = nuevoValor;
-                },
-              ),
-              const SizedBox(height: 40),
-
-              SizedBox(
+              // Tarjeta que agrupa los campos y el botón
+              Container(
                 width: double.infinity,
-                height: 50,
-                child: ElevatedButton.icon(
-                  onPressed:
-                      (_nameUserTextEdit.isEmpty ||
-                          _lastNameUserTextEdit.isEmpty)
-                      ? null
-                      : () {
-                          log(
-                            "Guardando... Nombre: $_nameUserTextEdit, Apellido: $_lastNameUserTextEdit",
-                          );
-                        },
-                  icon: const Icon(Icons.sync, size: 24),
-                  label: Text(
-                    AppLocalizations.of(context)!.save_button,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 24,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: const Color(0xFFEDEFF1)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 14,
+                      offset: const Offset(0, 4),
                     ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    elevation: 0,
-                    backgroundColor: const Color(0xFFE2F6F5),
-                    foregroundColor: const Color(0xFF26BFC0),
-                    disabledBackgroundColor: Colors.grey.shade300,
-                    disabledForegroundColor: Colors.grey.shade600,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25.0),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // TODO: Activar los inputs dejando readonly en false
+                    // actualmente en la api no actualiza los datos de usuarios como nombres
+                    LabelTextInput(
+                      label: AppLocalizations.of(context)!.user_name,
+                      initialValue: user.firstName ?? '',
+                      readOnly: true,
+                      onChanged: (String nuevoValor) {
+                        _nameUserTextEdit = nuevoValor;
+                      },
                     ),
-                  ),
+                    const SizedBox(height: 20),
+
+                    LabelTextInput(
+                      label: AppLocalizations.of(context)!.user_lastname,
+                      initialValue: user.lastName ?? '',
+                      readOnly: true,
+                      onChanged: (String nuevoValor) {
+                        _lastNameUserTextEdit = nuevoValor;
+                      },
+                    ),
+                    const SizedBox(height: 30),
+
+                    SizedBox(
+                      width: double.infinity,
+                      height: 50,
+                      child: ElevatedButton.icon(
+                        onPressed:
+                            (_nameUserTextEdit.isEmpty ||
+                                _lastNameUserTextEdit.isEmpty)
+                            ? null
+                            : () {
+                                log(
+                                  "Guardando... Nombre: $_nameUserTextEdit, Apellido: $_lastNameUserTextEdit",
+                                );
+                              },
+                        icon: const Icon(Icons.sync, size: 24),
+                        label: Text(
+                          AppLocalizations.of(context)!.save_button,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          elevation: 0,
+                          backgroundColor: const Color(0xFFE2F6F5),
+                          foregroundColor: const Color(0xFF26BFC0),
+                          disabledBackgroundColor: Colors.grey.shade300,
+                          disabledForegroundColor: Colors.grey.shade600,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25.0),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
