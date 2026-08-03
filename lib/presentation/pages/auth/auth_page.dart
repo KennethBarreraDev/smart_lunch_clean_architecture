@@ -116,7 +116,7 @@ class AuthPage extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      context.go(AppRoutes.termsAndConditionsRoute);
+                      context.push(AppRoutes.termsAndConditionsRoute);
                     },
                     child: Text(
                       AppLocalizations.of(context)!.terms_and_conditions,
@@ -132,7 +132,7 @@ class AuthPage extends StatelessWidget {
 
                   GestureDetector(
                     onTap: () {
-                      context.go(AppRoutes.privacyPolicyRoute);
+                      context.push(AppRoutes.privacyPolicyRoute);
                     },
                     child: Text(
                       AppLocalizations.of(context)!.political_privacy,

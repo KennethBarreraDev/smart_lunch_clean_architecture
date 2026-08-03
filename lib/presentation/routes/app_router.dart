@@ -2,8 +2,10 @@ import 'package:go_router/go_router.dart';
 import 'package:smart_lunch/core/base_widgets/bank_cards/panama/panama_cards_selector.dart';
 import 'package:smart_lunch/presentation/pages/auth/auth_page.dart';
 import 'package:smart_lunch/presentation/pages/children/children_page.dart';
+import 'package:smart_lunch/presentation/pages/configuration/configuration_page.dart';
 import 'package:smart_lunch/presentation/pages/limited_products/limited_products_page.dart';
 import 'package:smart_lunch/presentation/pages/prohibited_products/prohibited_products_page.dart';
+import 'package:smart_lunch/presentation/pages/sale_history/history_page.dart';
 import 'package:smart_lunch/presentation/pages/selected_child/selected_child_page.dart';
 import 'package:smart_lunch/presentation/pages/croem/register_croem_card.dart';
 import 'package:smart_lunch/presentation/pages/home/home_page.dart';
@@ -184,6 +186,18 @@ class AppRouter {
         path: AppRoutes.productLimited,
         builder: (context, state) => LimitedProductsPage(),
       ),
+
+      GoRoute(
+        name: AppRoutes.getCleanRouteName(AppRoutes.historyPage),
+        path: AppRoutes.historyPage,
+        builder: (context, state) => HistoryPage(),
+      ),
+
+      GoRoute(
+        name: AppRoutes.getCleanRouteName(AppRoutes.settingsPage),
+        path: AppRoutes.settingsPage,
+        builder: (context, state) => ConfigurationPage(),
+      )
     ],
   );
 }

@@ -21,6 +21,11 @@ class SessionRepository {
     _session = _session?.copyWith(openpayId: openpayId);
   }
 
+  Future<void> logOut() async {
+    await storage.deleteAll();
+    _session = null;
+  }
+
   Future<bool> checkAndLoadSession() async {
     String accessToken = await storage.readValue(CacheKeys.accessToken);
     String refreshToken = await storage.readValue(CacheKeys.refreshToken);

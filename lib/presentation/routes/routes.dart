@@ -28,6 +28,10 @@ class AppRoutes {
   static String productRestriction = "/product-restriction";
   static String productLimited = "/product-limited";
 
+  static String historyPage= "/history";
+
+  static String settingsPage= "/settings";
+
 
   static getCleanRouteName(String route) {
     return route.replaceAll("/", "");

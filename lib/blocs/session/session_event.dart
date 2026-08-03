@@ -2,6 +2,8 @@ abstract class SessionEvent {}
 
 class CheckSessionEvent extends SessionEvent {}
 
+class LogOutEvent extends SessionEvent {}
+
 class LoginUserEvent extends SessionEvent {
   final String username;
   final String password;

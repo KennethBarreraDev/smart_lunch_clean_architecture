@@ -3,10 +3,12 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sizer/sizer.dart';
 import 'package:smart_lunch/blocs/cafeteria/cafeteria_bloc.dart';
 import 'package:smart_lunch/blocs/cafeteria/cafeteria_event.dart';
 import 'package:smart_lunch/blocs/session/session_bloc.dart';
+import 'package:smart_lunch/blocs/session/session_event.dart';
 import 'package:smart_lunch/blocs/session/session_state.dart';
 import 'package:smart_lunch/blocs/users/users_bloc.dart';
 import 'package:smart_lunch/blocs/users/users_state.dart';
@@ -220,14 +222,14 @@ class TransparentScaffold extends StatelessWidget {
                                 title: AppLocalizations.of(context)!.history,
                                 icon: Icons.bar_chart,
                                 isSelected: selectedOption == "Historial",
-                                route: AppRoutes.homeRoute,
+                                route: AppRoutes.historyPage,
                                 onTap: () {
                                   // historyProvider.initialLoad(
                                   //   mainProvider.accessToken,
                                   //   mainProvider.cafeteriaId,
                                   //   int.parse(mainProvider.studentId),
                                   //   mainProvider.userType,
-                                  // );
+                                  // );                                  
                                 },
                               ),
 
@@ -246,7 +248,13 @@ class TransparentScaffold extends StatelessWidget {
                               children: [
                                 Divider(color: AppColors.white),
                                 ListTile(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                    context.read<SessionBloc>().add(
+                                      LogOutEvent(),
+                                    );
+                                    context.go(AppRoutes.authRoute);
+                                  },
                                   horizontalTitleGap: 0,
                                   contentPadding: const EdgeInsets.only(
                                     top: 20,

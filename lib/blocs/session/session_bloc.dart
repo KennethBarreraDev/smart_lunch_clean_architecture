@@ -13,6 +13,16 @@ class SessionBloc extends Bloc<SessionEvent, SessionState> {
     on<CheckSessionEvent>(_checkSession);
     on<TogglePasswordVisibility>(_togglePassword);
     on<LoginUserEvent>(_loginUser);
+    on<LogOutEvent>(_logOut);
+  }
+
+  Future<void> _logOut(
+    LogOutEvent event,
+    Emitter<SessionState> emit,
+  ) async {
+    await sessionRepository.logOut();
+
+    emit(SessionUnauthenticated(obscurePassword: state.obscurePassword));
   }
 
   Future<void> _checkSession(
