@@ -42,6 +42,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get send_button => 'Enviar';
 
   @override
+  String get invalid_email_field => 'Escribe un correo electrónico válido';
+
+  @override
   String get go_back_button => 'Regresar';
 
   @override

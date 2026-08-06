@@ -43,6 +43,10 @@
   "@send_button": {
     "description": "Label for send button"
   },
+  "invalid_email_field": "Enter a valid email address",
+  "@invalid_email_field": {
+    "description": "Error message shown below the email field when it is empty or invalid"
+  },
   "go_back_button": "Go back",
   "@go_back_button": {
     "description": "Label for go back button"

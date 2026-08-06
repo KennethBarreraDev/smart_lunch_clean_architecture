@@ -30,7 +30,7 @@ class AuthPage extends StatelessWidget {
         bodyConsumer: Column(
           children: [
             LoginInput(
-              labelText: AppLocalizations.of(context)!.email,
+              labelText: AppLocalizations.of(context)!.user_message,
               textInputType: TextInputType.emailAddress,
               textEditingController: emailController,
             ),
@@ -94,7 +94,9 @@ class AuthPage extends StatelessWidget {
 
             Center(
               child: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  context.push(AppRoutes.resetPasswordRoute);
+                },
                 child: Text(
                   AppLocalizations.of(context)!.reset_password,
                   style: const TextStyle(

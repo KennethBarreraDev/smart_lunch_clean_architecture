@@ -14,11 +14,15 @@ class LoginBasePage extends StatelessWidget {
     super.key,
     required this.title,
     required this.bodyConsumer,
+    this.headerImage,
+    this.fillHeight = false,
   });
 
   final String title;
   final Widget bodyConsumer;
   final bool shortMargin;
+  final Widget? headerImage;
+  final bool fillHeight;
 
   @override
   Widget build(BuildContext context) {
@@ -62,13 +66,17 @@ class LoginBasePage extends StatelessWidget {
 
   
           Positioned(
+            top: fillHeight ? 32.h : null,
             bottom: 0,
             left: 0,
             right: 0,
             child: ConstrainedBox(
-              constraints: BoxConstraints(maxHeight: 70.h),
+              constraints: BoxConstraints(maxHeight: fillHeight ? double.infinity : 70.h),
               child: SingleChildScrollView(
                 child: Container(
+                  constraints: fillHeight
+                      ? BoxConstraints(minHeight: 100.h - 32.h)
+                      : null,
                   decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
@@ -81,8 +89,13 @@ class LoginBasePage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(height: shortMargin ? 0 : 20),
+                      if (headerImage != null) ...[
+                        headerImage!,
+                        SizedBox(height: 2.h),
+                      ],
                       Text(
                         title,
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                           color: const Color(0xffEF5360).withValues(alpha: 0.9),
                           fontSize: 40,

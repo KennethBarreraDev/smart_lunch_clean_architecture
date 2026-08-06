@@ -164,6 +164,12 @@ abstract class AppLocalizations {
   /// **'Send'**
   String get send_button;
 
+  /// Error message shown below the email field when it is empty or invalid
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid email address'**
+  String get invalid_email_field;
+
   /// Label for go back button
   ///
   /// In en, this message translates to:

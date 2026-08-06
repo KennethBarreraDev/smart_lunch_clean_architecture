@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_lunch/core/utils/app_images.dart';
 
 class ChildCard extends StatelessWidget {
   final String name;
@@ -48,10 +49,8 @@ class ChildCard extends StatelessWidget {
               backgroundColor: Colors.grey.shade200,
               backgroundImage: imageUrl != null && imageUrl!.isNotEmpty
                   ? NetworkImage(imageUrl!)
-                  : null,
-              child: imageUrl == null || imageUrl!.isEmpty
-                  ? const Icon(Icons.person, size: 40, color: Colors.grey)
-                  : null,
+                  : AssetImage(AppImages.defaultProfileStudentImage)
+                      as ImageProvider,
             ),
 
             const SizedBox(width: 16),

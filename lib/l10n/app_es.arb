@@ -11,6 +11,7 @@
   "contact": "Contacto",
   "password_recover": "Recuperar contraseña",
   "send_button": "Enviar",
+  "invalid_email_field": "Escribe un correo electrónico válido",
   "go_back_button": "Regresar",
   "sale": "Compra",
   "presale": "Precompra",

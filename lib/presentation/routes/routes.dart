@@ -1,5 +1,7 @@
 class AppRoutes {
   static String authRoute = "/login";
+  static String resetPasswordRoute = "/reset-password";
+  static String checkEmailRoute = "/check-email";
   static String homeRoute = "/home";
   static String splashScreenRoute = "/splash";
   static String termsAndConditionsRoute = "/terms-and-conditions";

@@ -5,6 +5,8 @@ import 'package:smart_lunch/presentation/pages/children/children_page.dart';
 import 'package:smart_lunch/presentation/pages/configuration/configuration_page.dart';
 import 'package:smart_lunch/presentation/pages/limited_products/limited_products_page.dart';
 import 'package:smart_lunch/presentation/pages/prohibited_products/prohibited_products_page.dart';
+import 'package:smart_lunch/presentation/pages/reset_password/check_email_page.dart';
+import 'package:smart_lunch/presentation/pages/reset_password/reset_password_page.dart';
 import 'package:smart_lunch/presentation/pages/sale_history/history_page.dart';
 import 'package:smart_lunch/presentation/pages/selected_child/selected_child_page.dart';
 import 'package:smart_lunch/presentation/pages/croem/register_croem_card.dart';
@@ -36,6 +38,19 @@ class AppRouter {
         path: AppRoutes.authRoute,
         name: AppRoutes.getCleanRouteName(AppRoutes.authRoute),
         builder: (context, state) => AuthPage(),
+      ),
+
+      GoRoute(
+        path: AppRoutes.resetPasswordRoute,
+        name: AppRoutes.getCleanRouteName(AppRoutes.resetPasswordRoute),
+        builder: (context, state) => ResetPasswordPage(),
+      ),
+
+      GoRoute(
+        path: AppRoutes.checkEmailRoute,
+        name: AppRoutes.getCleanRouteName(AppRoutes.checkEmailRoute),
+        builder: (context, state) =>
+            CheckEmailPage(email: state.extra as String? ?? ""),
       ),
 
       GoRoute(
