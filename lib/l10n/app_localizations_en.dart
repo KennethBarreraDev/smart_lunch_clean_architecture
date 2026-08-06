@@ -45,6 +45,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get invalid_email_field => 'Enter a valid email address';
 
   @override
+  String get send_email_validation_error =>
+      'The email you entered is not valid.';
+
+  @override
+  String get send_email_server_error =>
+      'An unexpected server error occurred. Please try again later.';
+
+  @override
+  String get send_email_generic_error =>
+      'We couldn\'t send the email. Please try again.';
+
+  @override
   String get go_back_button => 'Go back';
 
   @override

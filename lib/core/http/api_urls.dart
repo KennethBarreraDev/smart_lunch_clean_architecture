@@ -68,7 +68,7 @@ class ApiUrls {
 
 
   // Steps for Change password
-  // Las demas tutas y pantallas para el cambio de contraseña ya no son necesarias
+  // Las demas rutas y pantallas para el cambio de contraseña ya no son necesarias
   static String sendEmail = "$baseUrl/smartlunch/core/user/send_email_verification/";
 
 

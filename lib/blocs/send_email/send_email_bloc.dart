@@ -9,6 +9,7 @@ class SendEmailBloc extends Bloc<SendEmailEvent, SendEmailState> {
 
   SendEmailBloc(this.repository) : super(SendEmailInitial()) {
     on<SendVerificationEmail>(_onSendVerificationEmail);
+    on<ResetSendEmailState>((event, emit) => emit(SendEmailInitial()));
   }
 
   Future<void> _onSendVerificationEmail(

@@ -20,6 +20,7 @@ class ResetPasswordPage extends StatefulWidget {
 
 class _ResetPasswordPageState extends State<ResetPasswordPage> {
   final TextEditingController emailController = TextEditingController();
+  late final SendEmailBloc _sendEmailBloc;
 
   static final RegExp _emailRegExp = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
 
@@ -29,19 +30,79 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
 
   void _onSendPressed(BuildContext context) {
     if (!_isEmailValid) {
+      _sendEmailBloc.add(const ResetSendEmailState());
       setState(() => _showEmailError = true);
       return;
     }
 
     setState(() => _showEmailError = false);
 
-    context.read<SendEmailBloc>().add(
-      SendVerificationEmail(emailController.text.trim()),
+    _sendEmailBloc.add(SendVerificationEmail(emailController.text.trim()));
+  }
+
+  String _errorMessageFor(String code, AppLocalizations localizations) {
+    switch (code) {
+      case "validation_error":
+        return localizations.send_email_validation_error;
+      case "internal_server_error":
+        return localizations.send_email_server_error;
+      default:
+        return localizations.send_email_generic_error;
+    }
+  }
+
+  Widget _buildEmailErrorBox(AppLocalizations localizations) {
+    String? errorText;
+
+    if (_showEmailError) {
+      errorText = localizations.invalid_email_field;
+    }
+
+    return BlocBuilder<SendEmailBloc, SendEmailState>(
+      builder: (context, state) {
+        errorText ??= state is SendEmailError
+            ? _errorMessageFor(state.message, localizations)
+            : null;
+
+        if (errorText == null) {
+          return const SizedBox();
+        }
+
+        return Padding(
+          padding: EdgeInsets.only(top: 0.5.h),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+              decoration: BoxDecoration(
+                color: const Color(0xffef5360).withValues(alpha: 0.15),
+                borderRadius: BorderRadius.circular(6),
+              ),
+              child: Text(
+                errorText!,
+                style: const TextStyle(
+                  color: Color(0xffef5360),
+                  fontSize: 12.0,
+                  fontFamily: "Comfortaa",
+                ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 
   @override
+  void initState() {
+    super.initState();
+    _sendEmailBloc = context.read<SendEmailBloc>();
+    _sendEmailBloc.add(const ResetSendEmailState());
+  }
+
+  @override
   void dispose() {
+    _sendEmailBloc.add(const ResetSendEmailState());
     emailController.dispose();
     super.dispose();
   }
@@ -53,8 +114,6 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
     return BlocListener<SendEmailBloc, SendEmailState>(
       listener: (context, state) {
         if (state is SendEmailSuccess) {
-          context.push(AppRoutes.checkEmailRoute, extra: state.email);
-        } else if (state is SendEmailError) {
           context.push(AppRoutes.checkEmailRoute, extra: state.email);
         }
       },
@@ -74,30 +133,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
               },
             ),
 
-            if (_showEmailError) ...[
-              SizedBox(height: 0.5.h),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 6,
-                  ),
-                  decoration: BoxDecoration(
-                    color: const Color(0xffef5360).withValues(alpha: 0.15),
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  child: Text(
-                    localizations.invalid_email_field,
-                    style: const TextStyle(
-                      color: Color(0xffef5360),
-                      fontSize: 12.0,
-                      fontFamily: "Comfortaa",
-                    ),
-                  ),
-                ),
-              ),
-            ],
+            _buildEmailErrorBox(localizations),
 
             SizedBox(height: 3.h),
 

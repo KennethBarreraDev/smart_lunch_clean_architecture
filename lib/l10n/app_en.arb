@@ -47,6 +47,18 @@
   "@invalid_email_field": {
     "description": "Error message shown below the email field when it is empty or invalid"
   },
+  "send_email_validation_error": "The email you entered is not valid.",
+  "@send_email_validation_error": {
+    "description": "Error shown when the backend rejects the email as invalid (400)"
+  },
+  "send_email_server_error": "An unexpected server error occurred. Please try again later.",
+  "@send_email_server_error": {
+    "description": "Error shown when the backend returns an internal server error (500)"
+  },
+  "send_email_generic_error": "We couldn't send the email. Please try again.",
+  "@send_email_generic_error": {
+    "description": "Fallback error shown for any other failure sending the verification email"
+  },
   "go_back_button": "Go back",
   "@go_back_button": {
     "description": "Label for go back button"

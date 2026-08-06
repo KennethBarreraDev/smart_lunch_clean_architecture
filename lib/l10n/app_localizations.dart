@@ -170,6 +170,24 @@ abstract class AppLocalizations {
   /// **'Enter a valid email address'**
   String get invalid_email_field;
 
+  /// Error shown when the backend rejects the email as invalid (400)
+  ///
+  /// In en, this message translates to:
+  /// **'The email you entered is not valid.'**
+  String get send_email_validation_error;
+
+  /// Error shown when the backend returns an internal server error (500)
+  ///
+  /// In en, this message translates to:
+  /// **'An unexpected server error occurred. Please try again later.'**
+  String get send_email_server_error;
+
+  /// Fallback error shown for any other failure sending the verification email
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t send the email. Please try again.'**
+  String get send_email_generic_error;
+
   /// Label for go back button
   ///
   /// In en, this message translates to:

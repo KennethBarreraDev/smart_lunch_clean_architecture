@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer' as developer;
 
 import 'package:smart_lunch/core/http/api_urls.dart';
@@ -9,29 +10,37 @@ class SendEmailRepository {
   SendEmailRepository(this.api);
 
   Future<bool> sendVerificationEmail(String email) async {
-    try {
-      final response = await api.post(
-        ApiUrls.sendEmail,
-        {"email": email},
-        logName: "sendVerificationEmail",
-      );
+    final response = await api.post(
+      ApiUrls.sendEmail,
+      {"email": email},
+      logName: "sendVerificationEmail",
+    );
 
-      if (response.statusCode != 200) {
-        developer.log(
-          "Failed to send verification email: ${response.statusCode} - ${response.body}",
-          name: "sendVerificationEmail",
-        );
-        throw Exception("error_sending_email");
-      }
-
+    if (response.statusCode == 200) {
       return true;
-    } catch (e) {
-      developer.log(
-        "Error sending verification email: $e",
-        name: "sendVerificationEmail",
-        error: e,
-      );
-      throw Exception("error_sending_email");
     }
+
+    developer.log(
+      "Failed to send verification email: ${response.statusCode} - ${response.body}",
+      name: "sendVerificationEmail",
+    );
+
+    String? code;
+    try {
+      final decoded = json.decode(response.body) as Map<String, dynamic>;
+      code = decoded["code"] as String?;
+    } catch (_) {
+      code = null;
+    }
+
+    if (response.statusCode == 400 || code == "validation_error") {
+      throw Exception("validation_error");
+    }
+
+    if (response.statusCode == 500 || code == "internal_server_error") {
+      throw Exception("internal_server_error");
+    }
+
+    throw Exception("error_sending_email");
   }
 }

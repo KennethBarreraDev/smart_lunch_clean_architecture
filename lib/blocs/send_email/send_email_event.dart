@@ -7,3 +7,7 @@ class SendVerificationEmail extends SendEmailEvent {
 
   const SendVerificationEmail(this.email);
 }
+
+class ResetSendEmailState extends SendEmailEvent {
+  const ResetSendEmailState();
+}
