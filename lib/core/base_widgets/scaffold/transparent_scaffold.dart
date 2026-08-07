@@ -223,13 +223,7 @@ class TransparentScaffold extends StatelessWidget {
                                 icon: Icons.bar_chart,
                                 isSelected: selectedOption == "Historial",
                                 route: AppRoutes.historyPage,
-                                onTap: () {
-                                  // historyProvider.initialLoad(
-                                  //   mainProvider.accessToken,
-                                  //   mainProvider.cafeteriaId,
-                                  //   int.parse(mainProvider.studentId),
-                                  //   mainProvider.userType,
-                                  // );                                  
+                                onTap: () {                               
                                 },
                               ),
 
@@ -237,7 +231,7 @@ class TransparentScaffold extends StatelessWidget {
                                 title: AppLocalizations.of(context)!.settings,
                                 icon: Icons.settings,
                                 isSelected: selectedOption == "Ajustes",
-                                route: AppRoutes.homeRoute,
+                                route: AppRoutes.settingsPage,
                               ),
                             ],
                           ),

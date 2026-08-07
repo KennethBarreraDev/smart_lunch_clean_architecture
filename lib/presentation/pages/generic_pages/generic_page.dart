@@ -32,35 +32,33 @@ class GenericPage extends StatelessWidget {
           },
         ),
       ],
-      child: false
-          ? MainLoader() // Cambia esta parte por alguna situacion
-          : TransparentScaffold(
-              selectedOption: "Historial",
-              body: Stack(
-                children: [
-                  Column(
-                    children: [
-                      CustomAppBar(
-                        height: 120,
-                        image: AppImages.cardImg,
-                        showPageTitle: true,
-                        pageTitle: AppLocalizations.of(context)!.history,
-                        showDrawer: true,
-                        showSchoolLogo: false,
-                        hideGoBackText: false,
-                        titleAlignment: Alignment.bottomLeft,
-                        titleTopPadding: 0.4,
-                        titleSize: 28.0,
-                      ),
+      child: TransparentScaffold(
+        selectedOption: "Historial",
+        body: Stack(
+          children: [
+            Column(
+              children: [
+                CustomAppBar(
+                  height: 120,
+                  image: AppImages.cardImg,
+                  showPageTitle: true,
+                  pageTitle: AppLocalizations.of(context)!.history,
+                  showDrawer: true,
+                  showSchoolLogo: false,
+                  hideGoBackText: false,
+                  titleAlignment: Alignment.bottomLeft,
+                  titleTopPadding: 0.4,
+                  titleSize: 28.0,
+                ),
 
-                      Text('Estas en el historial')
+                Text('Estas en el un componente generico'),
 
-                      // Mas codigo
-                    ],
-                  ),
-                ],
-              ),
+                // Mas codigo
+              ],
             ),
+          ],
+        ),
+      ),
     );
   }
 }

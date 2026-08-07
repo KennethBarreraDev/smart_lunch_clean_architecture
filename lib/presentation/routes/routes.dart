@@ -34,6 +34,9 @@ class AppRoutes {
 
   static String settingsPage= "/settings";
 
+  static String userInformation = "/user-information";
+  static String paymentInformation = "/payment-information";
+
 
   static getCleanRouteName(String route) {
     return route.replaceAll("/", "");

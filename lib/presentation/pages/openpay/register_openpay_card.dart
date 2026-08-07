@@ -205,7 +205,7 @@ class RegisterOpenpayCard extends StatelessWidget {
                                       );
                                     }
                                   },
-                                  child: openpayState is OpenpayLoading
+                                  child: openpayState is! OpenpayLoading
                                       ? Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,

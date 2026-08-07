@@ -43,7 +43,6 @@ class ApiUrls {
 
   //Memberships
   static String membershipsUrl = "$baseUrl/smartlunch/sale/membership/";
-  
 
   //Croem
   static String croemBaseUrl = "$baseUrl/core/croem/";
@@ -55,21 +54,20 @@ class ApiUrls {
   static String multisaleProducts = "$baseUrl/smartlunch/sale/multi_presale/";
 
   //Ingredients
-  static String ingredientsUrl= "$baseUrl/smartlunch/ingredient/";
+  static String ingredientsUrl = "$baseUrl/smartlunch/ingredient/";
 
   // Alergies
-  static String alergiesUrl= "$baseUrl/smartlunch/allergy/";
+  static String alergiesUrl = "$baseUrl/smartlunch/allergy/";
 
   // Product restriction
-  static String productRestrictionUrl= "$baseUrl/smartlunch/product-restriction/";
+  static String productRestrictionUrl =
+      "$baseUrl/smartlunch/product-restriction/";
 
   // Classification
-  static String classificationUrl= "$baseUrl/smartlunch/classification/";
-
+  static String classificationUrl = "$baseUrl/smartlunch/classification/";
 
   // Steps for Change password
   // Las demas rutas y pantallas para el cambio de contraseña ya no son necesarias
-  static String sendEmail = "$baseUrl/smartlunch/core/user/send_email_verification/";
-
-
+  static String sendEmail =
+      "$baseUrl/smartlunch/core/user/send_email_verification/";
 }

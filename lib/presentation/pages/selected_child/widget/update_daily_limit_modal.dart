@@ -50,6 +50,7 @@ class _UpdateDailyLimitModalState extends State<UpdateDailyLimitModal> {
                 Text(AppLocalizations.of(context)!.enter_amount),
                 const SizedBox(height: 8),
                 LabelTextInput(
+                  key: ValueKey(_unlimited),
                   label: AppLocalizations.of(context)!.daily_limit,
                   initialValue: _textFieldValue,
                   isNumeric: true,

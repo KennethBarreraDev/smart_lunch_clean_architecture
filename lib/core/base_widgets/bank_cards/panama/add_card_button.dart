@@ -17,39 +17,58 @@ class AddCardButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return cardsAmount < 3
         ? Padding(
-            padding: const EdgeInsets.only(bottom: 10, left: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             child: Container(
-              padding: const EdgeInsets.only(top: 5, left: 20, right: 20),
-              width: MediaQuery.of(context).size.width,
-              child: OutlinedButton(
-                onPressed: () {
-                  final route = isPanama
-                      ? AppRoutes.registerCroemCard
-                      : AppRoutes.registerOpenpayCard;
-
-                  context.pushNamed(AppRoutes.getCleanRouteName(route));
-                },
-                style: OutlinedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  side: const BorderSide(color: Colors.white),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: AppColors.tuitionGreen.withValues(alpha: 0.12),
+                borderRadius: BorderRadius.circular(24),
+                border: Border.all(
+                  color: AppColors.tuitionGreen.withValues(alpha: 0.3),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.add_card_outlined,
-                      color: AppColors.lightBlue,
-                      size: 24,
+              ),
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(24),
+                  onTap: () {
+                    final route = isPanama
+                        ? AppRoutes.registerCroemCard
+                        : AppRoutes.registerOpenpayCard;
+
+                    context.pushNamed(AppRoutes.getCleanRouteName(route));
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                            color: AppColors.tuitionGreen.withValues(
+                              alpha: 0.18,
+                            ),
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            Icons.add,
+                            color: AppColors.tuitionGreen,
+                            size: 18,
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Text(
+                          AppLocalizations.of(context)!.add_card,
+                          style: TextStyle(
+                            color: AppColors.tuitionGreen,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 15,
+                          ),
+                        ),
+                      ],
                     ),
-                    const SizedBox(width: 10),
-                    Text(
-                      AppLocalizations.of(context)!.add_card,
-                      style: TextStyle(color: AppColors.lightBlue),
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ),

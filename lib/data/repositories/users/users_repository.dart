@@ -190,6 +190,35 @@ class UserRepository {
     }
   }
 
+  Future<void> updateMainUserProfile({
+    required int cafeteriaUserId,
+    required String firstName,
+    required String lastName,
+    required String phone,
+  }) async {
+    try {
+      final response = await api.put(
+        "${ApiUrls.cafeteriaUserUrl}$cafeteriaUserId/",
+        {
+          "first_name": firstName,
+          "last_name": lastName,
+          "phone": phone,
+        },
+      );
+
+      if (response.statusCode != 200) {
+        developer.log(
+          "Failed to update user profile: ${response.statusCode} - ${response.body}",
+          name: "updateMainUserProfile",
+        );
+        throw Exception("error_updating_user_profile");
+      }
+    } catch (e) {
+      developer.log("Error updating user profile: $e", name: "updateMainUserProfile");
+      throw Exception("error_updating_user_profile");
+    }
+  }
+
   Future<void> updateUserInfo({
     required int cafeteriaUserId,
     required Map<String, dynamic> body,

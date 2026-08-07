@@ -141,6 +141,11 @@ class OpenpayRepository {
 
       if (response.statusCode != 200) {
         developer.log(response.body.toString(), name: "getCards");
+
+        if (_isMissingOpenpayIdError(response.bodyBytes)) {
+          return cards;
+        }
+
         throw Exception("getCards");
       }
 
@@ -214,6 +219,35 @@ class OpenpayRepository {
     } catch (e) {
       developer.log("Error registering card: $e", name: "registerOpenpayCard");
       rethrow;
+    }
+  }
+
+  Future<void> deleteOpenpayCard(String cardId) async {
+    try {
+      developer.log("Deleting openpay card $cardId", name: "deleteOpenpayCard");
+
+      final response = await api.delete(
+        "${ApiUrls.openPayCardsUrl}$cardId/",
+        logName: "deleteOpenpayCard",
+      );
+
+      if (response.statusCode != 200 && response.statusCode != 204) {
+        developer.log(response.body.toString(), name: "deleteOpenpayCard");
+        throw Exception("deleteOpenpayCard");
+      }
+    } catch (e) {
+      developer.log("Error deleting card: $e", name: "deleteOpenpayCard");
+      rethrow;
+    }
+  }
+
+  bool _isMissingOpenpayIdError(List<int> bodyBytes) {
+    try {
+      final body = json.decode(utf8.decode(bodyBytes));
+      final message = (body is Map ? body["message"]?.toString() : null) ?? "";
+      return message.toLowerCase().contains("openpay id not found");
+    } catch (_) {
+      return false;
     }
   }
 }

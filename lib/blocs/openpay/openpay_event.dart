@@ -59,6 +59,20 @@ class TemporallyChangeSelectedOpenpayCardEvent extends OpenpayEvent {
   );
 }
 
+class DeleteOpenpayCardEvent extends OpenpayEvent {
+  Openpay? openpay;
+  String cardId;
+  List<OpenpayCard> cards;
+  OpenpayCard? selectedCard;
+
+  DeleteOpenpayCardEvent(
+    this.openpay,
+    this.cardId,
+    this.cards,
+    this.selectedCard,
+  );
+}
+
 class RegisterOpenpayCardEvent extends OpenpayEvent {
   Openpay? openpay;
   String holderName;

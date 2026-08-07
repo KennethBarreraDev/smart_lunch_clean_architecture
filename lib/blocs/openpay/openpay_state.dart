@@ -29,6 +29,16 @@ class OpenpayCardsLoaded extends OpenpayState {
   });
 }
 
+class OpenpayCardDeleted extends OpenpayCardsLoaded {
+  OpenpayCardDeleted({
+    required super.openpay,
+    super.cards,
+    super.selectedCard,
+    super.cardBrand,
+    super.temporalCardID,
+  });
+}
+
 class OpenpayError extends OpenpayState {
   final String message;
 

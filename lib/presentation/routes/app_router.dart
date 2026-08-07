@@ -3,7 +3,9 @@ import 'package:smart_lunch/core/base_widgets/bank_cards/panama/panama_cards_sel
 import 'package:smart_lunch/presentation/pages/auth/auth_page.dart';
 import 'package:smart_lunch/presentation/pages/children/children_page.dart';
 import 'package:smart_lunch/presentation/pages/configuration/configuration_page.dart';
+import 'package:smart_lunch/presentation/pages/information_user/information_user.dart';
 import 'package:smart_lunch/presentation/pages/limited_products/limited_products_page.dart';
+import 'package:smart_lunch/presentation/pages/payment_information_page/payment_information_page.dart';
 import 'package:smart_lunch/presentation/pages/prohibited_products/prohibited_products_page.dart';
 import 'package:smart_lunch/presentation/pages/reset_password/check_email_page.dart';
 import 'package:smart_lunch/presentation/pages/reset_password/reset_password_page.dart';
@@ -212,7 +214,19 @@ class AppRouter {
         name: AppRoutes.getCleanRouteName(AppRoutes.settingsPage),
         path: AppRoutes.settingsPage,
         builder: (context, state) => ConfigurationPage(),
-      )
+      ),
+
+      GoRoute(
+        name: AppRoutes.getCleanRouteName(AppRoutes.userInformation),
+        path: AppRoutes.userInformation,
+        builder: (context, state) => const UserInformationPage(),
+      ),
+
+      GoRoute(
+        name: AppRoutes.getCleanRouteName(AppRoutes.paymentInformation),
+        path: AppRoutes.paymentInformation,
+        builder: (context, state) => const PaymentInformationPage(),
+      ),
     ],
   );
 }

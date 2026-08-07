@@ -15,6 +15,7 @@ class OpenpayBloc extends Bloc<OpenpayEvent, OpenpayState> {
     on<ConfigureOpenpayEvent>(_configureOpenpay);
     on<LoadOpenpayCardsEvent>(_loadOpenpayCards);
     on<RegisterOpenpayCardEvent>(_registerOpenpayCard);
+    on<DeleteOpenpayCardEvent>(_deleteOpenpayCard);
     on<ChangeOpenpayCardBrandEvent>(_changeOpenpayCardBrand);
     on<SelectMainOpenpayCardEvent>(_selectMainOpenpayCard);
     on<TemporallyChangeSelectedOpenpayCardEvent>(
@@ -144,6 +145,36 @@ class OpenpayBloc extends Bloc<OpenpayEvent, OpenpayState> {
           cards: cards,
           openpay: event.openpay,
           selectedCard: cards.isEmpty ? null : cards.first,
+        ),
+      );
+    } catch (e) {
+      emit(OpenpayError(e.toString()));
+    }
+  }
+
+  Future<void> _deleteOpenpayCard(
+    DeleteOpenpayCardEvent event,
+    Emitter<OpenpayState> emit,
+  ) async {
+    emit(OpenpayLoading());
+
+    try {
+      await repository.deleteOpenpayCard(event.cardId);
+
+      final remainingCards = event.cards
+          .where((card) => card.id.toString() != event.cardId)
+          .toList();
+
+      final wasSelectedCardDeleted =
+          event.selectedCard?.id.toString() == event.cardId;
+
+      emit(
+        OpenpayCardDeleted(
+          cards: remainingCards,
+          openpay: event.openpay,
+          selectedCard: wasSelectedCardDeleted
+              ? (remainingCards.isEmpty ? null : remainingCards.first)
+              : event.selectedCard,
         ),
       );
     } catch (e) {
