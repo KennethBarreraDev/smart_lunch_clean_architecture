@@ -49,7 +49,7 @@ class ApiUrls {
   static String croemBaseUrl = "$baseUrl/core/croem/";
 
   //Recharges
-  static String rechargeUrl = "$baseUrl/smartlunch/recharge/";
+  static String rechargeUrl = "$baseUrl/smartlunch/recharges/";
 
   //Multisales
   static String multisaleProducts = "$baseUrl/smartlunch/sale/multi_presale/";

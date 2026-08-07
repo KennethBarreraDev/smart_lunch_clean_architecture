@@ -33,6 +33,7 @@ class HistoryRepository {
 
       final userType = api.sessionRepository.session?.userType;
       final studentId = api.sessionRepository.session?.userId;
+      final familyId = api.sessionRepository.session?.familyId;
 
       List<dynamic> body = json.decode(
         utf8.decode(response.bodyBytes),
@@ -41,9 +42,15 @@ class HistoryRepository {
       final List<RechargeHistory> rechargeHistory = [];
 
       developer.log("Recharge body $body ", name: "loadRechargesHistory");
-      if (userType == UserRole.tutor || userType == UserRole.teacher) {
+      if (userType == UserRole.teacher) {
         for (dynamic historyElement in body) {
           rechargeHistory.add(RechargeHistory.fromJson(historyElement));
+        }
+      } else if (userType == UserRole.tutor) {
+        for (dynamic historyElement in body) {
+          if (historyElement["family"].toString() == familyId.toString()) {
+            rechargeHistory.add(RechargeHistory.fromJson(historyElement));
+          }
         }
       } else if (userType == UserRole.student) {
         for (dynamic historyElement in body) {

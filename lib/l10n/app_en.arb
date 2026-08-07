@@ -78,6 +78,22 @@
   "@presales": {
     "description": "Label for presales option"
   },
+  "recharges": "Recharges",
+  "@recharges": {
+    "description": "Label for recharges history tab"
+  },
+  "filter_all": "All",
+  "@filter_all": {
+    "description": "Label for the 'all' period filter option"
+  },
+  "filter_today": "Today",
+  "@filter_today": {
+    "description": "Label for the 'today' period filter option"
+  },
+  "filter_this_month": "This month",
+  "@filter_this_month": {
+    "description": "Label for the 'this month' period filter option"
+  },
   "home": "Home",
   "@home": {
     "description": "Label for home"

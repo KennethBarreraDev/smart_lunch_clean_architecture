@@ -72,6 +72,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get presales => 'Presales';
 
   @override
+  String get recharges => 'Recharges';
+
+  @override
+  String get filter_all => 'All';
+
+  @override
+  String get filter_today => 'Today';
+
+  @override
+  String get filter_this_month => 'This month';
+
+  @override
   String get home => 'Home';
 
   @override

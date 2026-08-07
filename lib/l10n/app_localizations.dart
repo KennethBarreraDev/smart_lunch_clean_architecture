@@ -218,6 +218,30 @@ abstract class AppLocalizations {
   /// **'Presales'**
   String get presales;
 
+  /// Label for recharges history tab
+  ///
+  /// In en, this message translates to:
+  /// **'Recharges'**
+  String get recharges;
+
+  /// Label for the 'all' period filter option
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get filter_all;
+
+  /// Label for the 'today' period filter option
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get filter_today;
+
+  /// Label for the 'this month' period filter option
+  ///
+  /// In en, this message translates to:
+  /// **'This month'**
+  String get filter_this_month;
+
   /// Label for home
   ///
   /// In en, this message translates to:

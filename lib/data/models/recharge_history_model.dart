@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
+import 'package:intl/intl.dart';
 
 class RechargeHistory {
   
@@ -48,13 +49,17 @@ class RechargeHistory {
   }
 
   factory RechargeHistory.fromMap(Map<String, dynamic> map) {
+    final DateTime? date = DateTime.tryParse(
+      map['recharge_date']?.toString() ?? '',
+    )?.toLocal();
+
     return RechargeHistory(
-      id: map['id'] != null ? map['id'] as String : null,
-      rechargeUser: map['rechargeUser'] != null ? map['rechargeUser'] as String : null,
-      rechargeDate: map['rechargeDate'] != null ? map['rechargeDate'] as String : null,
-      rechargeTime: map['rechargeTime'] != null ? map['rechargeTime'] as String : null,
-      total: map['total'] != null ? map['total'] as String : null,
-      platform: map['platform'] != null ? map['platform'] as String : null,
+      id: map['id']?.toString(),
+      rechargeUser: map['user_recharger']?['username'] as String?,
+      rechargeDate: date != null ? DateFormat('dd/MM/yyyy').format(date) : null,
+      rechargeTime: date != null ? DateFormat('HH:mm').format(date) : null,
+      total: map['amount']?.toString(),
+      platform: map['payment_method'] as String?,
     );
   }
 

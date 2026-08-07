@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:smart_lunch/core/utils/app_images.dart';
 import 'package:smart_lunch/core/utils/cafeteria_constants.dart';
 import 'package:smart_lunch/data/models/cafeteria_model.dart';
