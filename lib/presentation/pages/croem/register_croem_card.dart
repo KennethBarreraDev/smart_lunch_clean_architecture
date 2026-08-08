@@ -12,6 +12,7 @@ import 'package:smart_lunch/core/base_widgets/appbar/custom_appbar.dart';
 import 'package:smart_lunch/core/base_widgets/scaffold/transparent_scaffold.dart';
 import 'package:smart_lunch/core/base_widgets/snackbar/generic_snackbar.dart';
 import 'package:smart_lunch/core/utils/app_images.dart';
+import 'package:smart_lunch/l10n/app_localizations.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class RegisterCroemCardPage extends StatefulWidget {
@@ -81,7 +82,7 @@ class _RegisterCroemCardPageState extends State<RegisterCroemCardPage> {
             CustomAppBar(
               height: 140,
               showPageTitle: true,
-              pageTitle: "Nueva tarjeta",
+              pageTitle: AppLocalizations.of(context)!.new_card_message,
               titleAlignment: Alignment.bottomRight,
               image: AppImages.appBarShortImg,
               showDrawer: false,

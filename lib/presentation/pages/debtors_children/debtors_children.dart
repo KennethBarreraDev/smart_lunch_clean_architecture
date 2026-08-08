@@ -35,7 +35,7 @@ class DebtorsChildrenPage extends StatelessWidget {
                   height: 20.h,
                   showDrawer: false,
                   showPageTitle: true,
-                  pageTitle: "Hijos",
+                  pageTitle: AppLocalizations.of(context)!.children,
                   image: AppImages.appBarShortImg,
                   titleAlignment: Alignment.centerLeft,
                 ),
@@ -232,7 +232,7 @@ class DebtorsChildrenPage extends StatelessWidget {
                           child: RoundedButton(
                             color: AppColors.tuitionGreen,
                             iconData: Icons.payments,
-                            text: "Pagar",
+                            text: AppLocalizations.of(context)!.pay_button,
                             verticalPadding: 14,
                             mainAxisAlignment: MainAxisAlignment.center,
                             onTap: () {

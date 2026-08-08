@@ -216,7 +216,13 @@ class _UpdateAlergyModalState extends State<UpdateAlergyModal> {
         if (cafeteriaUserId == null) {
           ScaffoldMessenger.of(
             context,
-          ).showSnackBar(const SnackBar(content: Text('No user selected')));
+          ).showSnackBar(
+            SnackBar(
+              content: Text(
+                AppLocalizations.of(context)!.no_user_selected_message,
+              ),
+            ),
+          );
           return;
         }
 
@@ -273,7 +279,9 @@ class _UpdateAlergyModalState extends State<UpdateAlergyModal> {
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('Error: ${e.toString()}'),
+                content: Text(
+                  '${AppLocalizations.of(context)!.error_message}: ${e.toString()}',
+                ),
                 backgroundColor: Colors.red,
               ),
             );

@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:smart_lunch/blocs/session/session_bloc.dart';
 import 'package:smart_lunch/blocs/session/session_state.dart';
 import 'package:smart_lunch/core/constants/user_roles.dart';
+import 'package:smart_lunch/l10n/app_localizations.dart';
 import 'package:smart_lunch/presentation/pages/configuration/widgets/settings_option_card.dart';
 import 'package:smart_lunch/presentation/routes/routes.dart';
 
@@ -28,7 +29,7 @@ class PaymentMethodsCard extends StatelessWidget {
 
         return SettingsOptionCard(
           icon: Icons.credit_card,
-          text: "Métodos de pago",
+          text: AppLocalizations.of(context)!.payment_methods_message,
           trailing: const Icon(
             Icons.chevron_right,
             color: Colors.grey,

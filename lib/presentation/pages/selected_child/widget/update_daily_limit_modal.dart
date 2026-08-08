@@ -92,8 +92,10 @@ class _UpdateDailyLimitModalState extends State<UpdateDailyLimitModal> {
             onButtonPressed: () {
               if (!_unlimited && _limitValue < 0) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Negative limit'),
+                  SnackBar(
+                    content: Text(
+                      AppLocalizations.of(context)!.negative_limit_message,
+                    ),
                     backgroundColor: Colors.red,
                   ),
                 );

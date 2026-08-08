@@ -281,7 +281,7 @@ abstract class AppLocalizations {
   /// Label for children option
   ///
   /// In en, this message translates to:
-  /// **'children'**
+  /// **'Children'**
   String get children;
 
   /// Label for history option
@@ -1423,6 +1423,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Select time'**
   String get select_time;
+
+  /// Label for receive_notifications
+  ///
+  /// In en, this message translates to:
+  /// **'Receive notifications'**
+  String get receive_notifications;
+
+  /// Label for language_spanish
+  ///
+  /// In en, this message translates to:
+  /// **'Spanish'**
+  String get language_spanish;
+
+  /// Label for language_english
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get language_english;
+
+  /// Label for payment_methods_message
+  ///
+  /// In en, this message translates to:
+  /// **'Payment methods'**
+  String get payment_methods_message;
+
+  /// Label for my_information
+  ///
+  /// In en, this message translates to:
+  /// **'My information'**
+  String get my_information;
+
+  /// Label for data_updated_successfully
+  ///
+  /// In en, this message translates to:
+  /// **'Data updated successfully'**
+  String get data_updated_successfully;
+
+  /// Label for data_update_error
+  ///
+  /// In en, this message translates to:
+  /// **'The data could not be updated'**
+  String get data_update_error;
+
+  /// Label for no_sales_message
+  ///
+  /// In en, this message translates to:
+  /// **'No sales to show'**
+  String get no_sales_message;
+
+  /// Label for no_recharges_message
+  ///
+  /// In en, this message translates to:
+  /// **'No recharges to show'**
+  String get no_recharges_message;
+
+  /// Label for direct_sale_message
+  ///
+  /// In en, this message translates to:
+  /// **'Direct sale'**
+  String get direct_sale_message;
+
+  /// Label for recharge_message
+  ///
+  /// In en, this message translates to:
+  /// **'Recharge'**
+  String get recharge_message;
+
+  /// Label for filter_message
+  ///
+  /// In en, this message translates to:
+  /// **'Filter'**
+  String get filter_message;
+
+  /// Label for pay_button
+  ///
+  /// In en, this message translates to:
+  /// **'Pay'**
+  String get pay_button;
+
+  /// Label for new_card_message
+  ///
+  /// In en, this message translates to:
+  /// **'New card'**
+  String get new_card_message;
+
+  /// Label for error_message
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get error_message;
+
+  /// Label for negative_limit_message
+  ///
+  /// In en, this message translates to:
+  /// **'Negative limit'**
+  String get negative_limit_message;
+
+  /// Label for no_user_selected_message
+  ///
+  /// In en, this message translates to:
+  /// **'No user selected'**
+  String get no_user_selected_message;
 }
 
 class _AppLocalizationsDelegate

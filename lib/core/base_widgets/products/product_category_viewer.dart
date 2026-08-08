@@ -37,7 +37,7 @@ class ProductCategoryViewer extends StatelessWidget {
                             ),
                             isScrollable: true,
                             tabs: [
-                              const Tab(text: "Todos"),
+                              Tab(text: AppLocalizations.of(context)!.filter_all),
                               ...categories.map(
                                 (category) => Tab(text: category.name),
                               ),

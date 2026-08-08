@@ -9,6 +9,7 @@ import 'package:smart_lunch/blocs/selected_user/selected_user_state.dart';
 import 'package:smart_lunch/core/base_widgets/appbar/custom_appbar.dart';
 import 'package:smart_lunch/core/base_widgets/scaffold/transparent_scaffold.dart';
 import 'package:smart_lunch/core/utils/app_images.dart';
+import 'package:smart_lunch/l10n/app_localizations.dart';
 import 'package:smart_lunch/presentation/pages/selected_child/tabs/edit_profile_tab.dart';
 import 'package:smart_lunch/presentation/pages/selected_child/tabs/selected_child_gestion_tab.dart';
 import 'package:smart_lunch/presentation/pages/selected_child/widget/selected_child_tab.dart';
@@ -62,10 +63,12 @@ class SelectedChildPage extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Error: ${state.message}'),
+                    Text(
+                      '${AppLocalizations.of(context)!.error_message}: ${state.message}',
+                    ),
                     ElevatedButton(
                       onPressed: () => context.go(AppRoutes.children),
-                      child: const Text('Volver'),
+                      child: Text(AppLocalizations.of(context)!.go_back_button),
                     ),
                   ],
                 ),

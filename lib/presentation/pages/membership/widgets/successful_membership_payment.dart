@@ -82,9 +82,9 @@ class MembershipSuccessPage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             children: [
-              Text("Subtotal: $subtotal"),
-              Text("Fee: $fee"),
-              Text("Total: $total"),
+              Text("${AppLocalizations.of(context)!.subtotal}: $subtotal"),
+              Text("${AppLocalizations.of(context)!.bank_fee}: $fee"),
+              Text("${AppLocalizations.of(context)!.total_price}: $total"),
               const SizedBox(height: 30),
               RoundedButton(
                 text: AppLocalizations.of(context)!.go_back_button,

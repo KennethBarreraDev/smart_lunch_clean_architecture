@@ -7,6 +7,7 @@ import 'package:smart_lunch/blocs/history/history_state.dart';
 import 'package:smart_lunch/core/base_widgets/cards/empty_products_state.dart';
 import 'package:smart_lunch/core/base_widgets/cards/sale_card.dart';
 import 'package:smart_lunch/data/models/recharge_history_model.dart';
+import 'package:smart_lunch/l10n/app_localizations.dart';
 
 /// Lista de recargas del historial, filtrada por [periodo]
 /// ('todo', 'hoy' o 'este_mes') según lo seleccionado en el
@@ -67,8 +68,8 @@ class _RechargeHistoryListState extends State<RechargeHistoryList> {
             .toList();
 
         if (recargas.isEmpty) {
-          return const EmptyProductsState(
-            message: 'No hay recargas para mostrar',
+          return EmptyProductsState(
+            message: AppLocalizations.of(context)!.no_recharges_message,
           );
         }
 
@@ -82,7 +83,9 @@ class _RechargeHistoryListState extends State<RechargeHistoryList> {
               date: recarga.rechargeDate ?? '',
               amount: double.tryParse(recarga.total ?? '') ?? 0,
               id: recarga.id ?? '',
-              saleType: recarga.platform ?? 'Recarga',
+              saleType:
+                  recarga.platform ??
+                  AppLocalizations.of(context)!.recharge_message,
               time: recarga.rechargeTime ?? '',
               showProducts: false,
               expanded: _expandedId == recarga.id,

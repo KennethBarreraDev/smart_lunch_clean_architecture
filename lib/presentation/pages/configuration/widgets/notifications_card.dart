@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_lunch/core/base_widgets/checkbox/custom_checkbox.dart';
+import 'package:smart_lunch/l10n/app_localizations.dart';
 import 'package:smart_lunch/presentation/pages/configuration/widgets/settings_option_card.dart';
 
 class NotificationsCard extends StatefulWidget {
@@ -16,7 +17,7 @@ class _NotificationsCardState extends State<NotificationsCard> {
   Widget build(BuildContext context) {
     return SettingsOptionCard(
       icon: Icons.notifications_none_rounded,
-      text: "Recibir notificaciones",
+      text: AppLocalizations.of(context)!.receive_notifications,
       trailing: CustomCheckbox(
         value: _receiveNotifications,
         text: "",

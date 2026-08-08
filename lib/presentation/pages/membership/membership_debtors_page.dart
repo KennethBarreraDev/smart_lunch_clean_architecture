@@ -191,7 +191,7 @@ class MembershipDebtorsPage extends StatelessWidget {
                                       ? AppColors.darkBlue
                                       : AppColors.tuitionGreen,
                                   iconData: Icons.payments,
-                                  text: "Pagar",
+                                  text: AppLocalizations.of(context)!.pay_button,
                                   verticalPadding: 14,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   onTap: () async {

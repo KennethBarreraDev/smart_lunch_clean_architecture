@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_lunch/l10n/app_localizations.dart';
 
 /// Modelo reducido de producto para mostrar dentro de la tarjeta de venta.
 class ShortProduct {
@@ -171,29 +172,36 @@ class _SaleCardState extends State<SaleCard> {
 
   /// datos de compra solo a productos tabla de productos.
   Widget _details() {
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
             Expanded(flex: 4, child: _field('ID', widget.id)),
-            Expanded(flex: 4, child: _field('Tipo de venta', widget.saleType)),
+            Expanded(
+              flex: 4,
+              child: _field(l10n.sale_type, widget.saleType),
+            ),
             Expanded(
               flex: 3,
-              child: _field('Hora', widget.time, align: CrossAxisAlignment.end),
+              child: _field(l10n.time, widget.time, align: CrossAxisAlignment.end),
             ),
           ],
         ),
         if (widget.showProducts) ...[
           const SizedBox(height: 22),
-          const Row(
+          Row(
             children: [
-              Expanded(flex: 5, child: _Label('Producto')),
+              Expanded(flex: 5, child: _Label(l10n.product_message)),
               Expanded(
                 flex: 3,
-                child: _Label('Cantidad', align: TextAlign.center),
+                child: _Label(l10n.amount_message, align: TextAlign.center),
               ),
-              Expanded(flex: 3, child: _Label('Precio', align: TextAlign.end)),
+              Expanded(
+                flex: 3,
+                child: _Label(l10n.price_message, align: TextAlign.end),
+              ),
             ],
           ),
           const SizedBox(height: 10),

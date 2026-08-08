@@ -244,7 +244,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get inactive_message => 'Inactivo';
 
   @override
-  String get registration => 'Registration: ';
+  String get registration => 'Matrícula';
 
   @override
   String get student_information => 'Información del alumno';
@@ -591,7 +591,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get succes_sale => 'Orden realizada exitosamente';
 
   @override
-  String get error_sale => 'error placing order';
+  String get error_sale => 'Error al realizar el pedido';
 
   @override
   String get continuePayment => 'Continuar con el pago';
@@ -694,4 +694,55 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get select_time => 'Seleccionar hora';
+
+  @override
+  String get receive_notifications => 'Recibir notificaciones';
+
+  @override
+  String get language_spanish => 'Español';
+
+  @override
+  String get language_english => 'English';
+
+  @override
+  String get payment_methods_message => 'Métodos de pago';
+
+  @override
+  String get my_information => 'Mi información';
+
+  @override
+  String get data_updated_successfully => 'Datos actualizados correctamente';
+
+  @override
+  String get data_update_error => 'No se pudieron actualizar los datos';
+
+  @override
+  String get no_sales_message => 'No hay ventas para mostrar';
+
+  @override
+  String get no_recharges_message => 'No hay recargas para mostrar';
+
+  @override
+  String get direct_sale_message => 'Venta directa';
+
+  @override
+  String get recharge_message => 'Recarga';
+
+  @override
+  String get filter_message => 'Filtrar';
+
+  @override
+  String get pay_button => 'Pagar';
+
+  @override
+  String get new_card_message => 'Nueva tarjeta';
+
+  @override
+  String get error_message => 'Error';
+
+  @override
+  String get negative_limit_message => 'Límite negativo';
+
+  @override
+  String get no_user_selected_message => 'Ningún usuario seleccionado';
 }

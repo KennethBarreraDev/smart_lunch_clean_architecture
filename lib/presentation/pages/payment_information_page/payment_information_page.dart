@@ -118,7 +118,7 @@ class _PaymentInformationPageState extends State<PaymentInformationPage> {
                   height: 120,
                   image: AppImages.cardImg,
                   showPageTitle: true,
-                  pageTitle: "Métodos de pago",
+                  pageTitle: AppLocalizations.of(context)!.payment_methods_message,
                   showDrawer: false,
                   showSchoolLogo: false,
                   hideGoBackText: false,

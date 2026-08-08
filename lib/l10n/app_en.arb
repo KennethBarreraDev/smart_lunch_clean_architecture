@@ -118,7 +118,7 @@
   "@student": {
     "description": "Label for student role"
   },
-  "children": "children",
+  "children": "Children",
   "@children": {
     "description": "Label for children option"
   },
@@ -985,6 +985,74 @@
 "select_time": "Select time",
 "@select_time": {
   "description": "Label for select time"
+},
+"receive_notifications": "Receive notifications",
+"@receive_notifications": {
+  "description": "Label for receive_notifications"
+},
+"language_spanish": "Spanish",
+"@language_spanish": {
+  "description": "Label for language_spanish"
+},
+"language_english": "English",
+"@language_english": {
+  "description": "Label for language_english"
+},
+"payment_methods_message": "Payment methods",
+"@payment_methods_message": {
+  "description": "Label for payment_methods_message"
+},
+"my_information": "My information",
+"@my_information": {
+  "description": "Label for my_information"
+},
+"data_updated_successfully": "Data updated successfully",
+"@data_updated_successfully": {
+  "description": "Label for data_updated_successfully"
+},
+"data_update_error": "The data could not be updated",
+"@data_update_error": {
+  "description": "Label for data_update_error"
+},
+"no_sales_message": "No sales to show",
+"@no_sales_message": {
+  "description": "Label for no_sales_message"
+},
+"no_recharges_message": "No recharges to show",
+"@no_recharges_message": {
+  "description": "Label for no_recharges_message"
+},
+"direct_sale_message": "Direct sale",
+"@direct_sale_message": {
+  "description": "Label for direct_sale_message"
+},
+"recharge_message": "Recharge",
+"@recharge_message": {
+  "description": "Label for recharge_message"
+},
+"filter_message": "Filter",
+"@filter_message": {
+  "description": "Label for filter_message"
+},
+"pay_button": "Pay",
+"@pay_button": {
+  "description": "Label for pay_button"
+},
+"new_card_message": "New card",
+"@new_card_message": {
+  "description": "Label for new_card_message"
+},
+"error_message": "Error",
+"@error_message": {
+  "description": "Label for error_message"
+},
+"negative_limit_message": "Negative limit",
+"@negative_limit_message": {
+  "description": "Label for negative_limit_message"
+},
+"no_user_selected_message": "No user selected",
+"@no_user_selected_message": {
+  "description": "Label for no_user_selected_message"
 }
 }
 

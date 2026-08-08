@@ -89,9 +89,12 @@ class TopupSuccessPage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             children: [
-              _priceRow(total, currency),
+              _priceRow(context, total, currency),
               const SizedBox(height: 10),
-              _infoRow("Folio", state.transactionFolio),
+              _infoRow(
+                AppLocalizations.of(context)!.folio_message,
+                state.transactionFolio,
+              ),
               _divider(),
               _infoRow(
                 AppLocalizations.of(context)!.date,
@@ -103,7 +106,10 @@ class TopupSuccessPage extends StatelessWidget {
                 PaymentMethodUtils.getMethodName(state.selectedMethod),
               ),
               _divider(),
-              _infoRow("Transaction ID", state.topUpId ?? "-"),
+              _infoRow(
+                AppLocalizations.of(context)!.transaction_id,
+                state.topUpId ?? "-",
+              ),
               const SizedBox(height: 30),
               RoundedButton(
                 text: AppLocalizations.of(context)!.go_back_button,
@@ -118,11 +124,11 @@ class TopupSuccessPage extends StatelessWidget {
     );
   }
 
-  Widget _priceRow(double total, String currency) {
+  Widget _priceRow(BuildContext context, double total, String currency) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Text("Total"),
+        Text(AppLocalizations.of(context)!.total_price),
         Text("\$${total.toStringAsFixed(2)} $currency"),
       ],
     );

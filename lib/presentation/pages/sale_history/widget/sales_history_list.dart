@@ -9,6 +9,7 @@ import 'package:smart_lunch/blocs/users/users_state.dart';
 import 'package:smart_lunch/core/base_widgets/cards/empty_products_state.dart';
 import 'package:smart_lunch/core/base_widgets/cards/sale_card.dart';
 import 'package:smart_lunch/data/models/presale_model.dart';
+import 'package:smart_lunch/l10n/app_localizations.dart';
 
 class _SaleEntry {
   final Presale venta;
@@ -89,7 +90,9 @@ class _SalesHistoryListState extends State<SalesHistoryList> {
         ].where((entry) => _matchesPeriodo(entry.venta.deliveryDate)).toList();
 
         if (ventas.isEmpty) {
-          return const EmptyProductsState(message: 'No hay ventas para mostrar');
+          return EmptyProductsState(
+            message: AppLocalizations.of(context)!.no_sales_message,
+          );
         }
 
         return ListView.builder(
@@ -103,7 +106,9 @@ class _SalesHistoryListState extends State<SalesHistoryList> {
               date: venta.deliveryDate,
               amount: venta.saleTotal,
               id: venta.presaleId,
-              saleType: entry.isPresale ? 'Preventa' : 'Venta directa',
+              saleType: entry.isPresale
+                  ? AppLocalizations.of(context)!.presale
+                  : AppLocalizations.of(context)!.direct_sale_message,
               time: '',
               products: _toShortProducts(venta),
               expanded: _expandedId == venta.presaleId,

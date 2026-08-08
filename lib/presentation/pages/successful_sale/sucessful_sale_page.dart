@@ -123,7 +123,7 @@ class SuccessfulSalePage extends StatelessWidget {
           child: Column(
             children: [
               if (isSelfSufficient)
-                _priceRow(saleState.finalPrice, currency),
+                _priceRow(context, saleState.finalPrice, currency),
 
               _infoRow(
                 AppLocalizations.of(context)!.folio_message,
@@ -178,11 +178,14 @@ class SuccessfulSalePage extends StatelessWidget {
   }
 
 
-  Widget _priceRow(String? price, String currency) {
+  Widget _priceRow(BuildContext context, String? price, String currency) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text("Total", style: _labelStyle.copyWith(fontSize: 22)),
+        Text(
+          AppLocalizations.of(context)!.total_price,
+          style: _labelStyle.copyWith(fontSize: 22),
+        ),
         Text(
           "\$${price ?? "0"} $currency",
           style: _valueStyle.copyWith(fontSize: 26),

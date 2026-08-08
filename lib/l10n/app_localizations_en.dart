@@ -102,7 +102,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get student => 'Student';
 
   @override
-  String get children => 'children';
+  String get children => 'Children';
 
   @override
   String get history => 'History';
@@ -695,4 +695,55 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get select_time => 'Select time';
+
+  @override
+  String get receive_notifications => 'Receive notifications';
+
+  @override
+  String get language_spanish => 'Spanish';
+
+  @override
+  String get language_english => 'English';
+
+  @override
+  String get payment_methods_message => 'Payment methods';
+
+  @override
+  String get my_information => 'My information';
+
+  @override
+  String get data_updated_successfully => 'Data updated successfully';
+
+  @override
+  String get data_update_error => 'The data could not be updated';
+
+  @override
+  String get no_sales_message => 'No sales to show';
+
+  @override
+  String get no_recharges_message => 'No recharges to show';
+
+  @override
+  String get direct_sale_message => 'Direct sale';
+
+  @override
+  String get recharge_message => 'Recharge';
+
+  @override
+  String get filter_message => 'Filter';
+
+  @override
+  String get pay_button => 'Pay';
+
+  @override
+  String get new_card_message => 'New card';
+
+  @override
+  String get error_message => 'Error';
+
+  @override
+  String get negative_limit_message => 'Negative limit';
+
+  @override
+  String get no_user_selected_message => 'No user selected';
 }

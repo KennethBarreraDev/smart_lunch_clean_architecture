@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_lunch/l10n/app_localizations.dart';
 
 class TabOrangeFilter extends StatefulWidget {
   const TabOrangeFilter({
@@ -113,7 +114,7 @@ class _TabOrangeFilterState extends State<TabOrangeFilter>
                 IconButton(
                   onPressed: widget.onFilterTap,
                   icon: Icon(Icons.tune_rounded, color: widget.selectedColor),
-                  tooltip: 'Filtrar',
+                  tooltip: AppLocalizations.of(context)!.filter_message,
                 ),
             ],
           ),

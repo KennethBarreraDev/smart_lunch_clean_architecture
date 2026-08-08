@@ -174,7 +174,7 @@ class SuccessfulPreSalePage extends StatelessWidget {
           const SizedBox(height: 11),
           _divider(),
           const SizedBox(height: 11),
-          _totalRow(state.finalPrice, currency),
+          _totalRow(context, state.finalPrice, currency),
         ],
       ),
     );
@@ -211,11 +211,14 @@ class SuccessfulPreSalePage extends StatelessWidget {
     );
   }
 
-  Widget _totalRow(String? price, String currency) {
+  Widget _totalRow(BuildContext context, String? price, String currency) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text("Total", style: _labelStyle.copyWith(fontSize: 24)),
+        Text(
+          AppLocalizations.of(context)!.total_price,
+          style: _labelStyle.copyWith(fontSize: 24),
+        ),
         Text(
           "\$${price ?? "0"} $currency",
           style: _valueStyle.copyWith(fontSize: 24),

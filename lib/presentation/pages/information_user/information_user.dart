@@ -49,7 +49,7 @@ class UserInformationPage extends StatelessWidget {
                   height: 120,
                   image: AppImages.cardImg,
                   showPageTitle: true,
-                  pageTitle: "Mi información",
+                  pageTitle: AppLocalizations.of(context)!.my_information,
                   showDrawer: false,
                   showSchoolLogo: false,
                   hideGoBackText: false,
@@ -132,7 +132,7 @@ class _UserInformationFormState extends State<_UserInformationForm> {
       showCustomSnackBar(
         context: context,
         bannerType: BannerTypes.successBanner.type,
-        bannerMessage: "Datos actualizados correctamente",
+        bannerMessage: AppLocalizations.of(context)!.data_updated_successfully,
       );
     } catch (e) {
       if (!mounted) return;
@@ -140,7 +140,7 @@ class _UserInformationFormState extends State<_UserInformationForm> {
       showCustomSnackBar(
         context: context,
         bannerType: BannerTypes.errorBanner.type,
-        bannerMessage: "No se pudieron actualizar los datos",
+        bannerMessage: AppLocalizations.of(context)!.data_update_error,
       );
     } finally {
       if (mounted) setState(() => _saving = false);
@@ -199,14 +199,14 @@ class _UserInformationFormState extends State<_UserInformationForm> {
                 const SizedBox(height: 20),
 
                 LabelTextInput(
-                  label: "Teléfono",
+                  label: AppLocalizations.of(context)!.phone_numer,
                   initialValue: _phone,
                   onChanged: (value) => setState(() => _phone = value),
                 ),
                 const SizedBox(height: 20),
 
                 LabelTextInput(
-                  label: "Correo",
+                  label: AppLocalizations.of(context)!.email,
                   initialValue: user?.email ?? "",
                   readOnly: true,
                 ),
